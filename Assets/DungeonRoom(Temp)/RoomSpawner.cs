@@ -87,9 +87,13 @@ public class RoomSpawner : MonoBehaviour
                     {
                         //Find the doors that this room must generate to match up with the surrounding rooms
                         string necessaryDoors = FindNecessaryDoors(i, j);
+                        //Find the surrounding rooms that do not have a door leading here so a door is not generated leading into a wall
+                        string surroundingWalls = FindSurroundingWalls(i, j);
+                        Debug.Log(necessaryDoors);
+                        Debug.Log(surroundingWalls);
 
-                        //Spawn a new room with necessaryDoors into that position and mark it on roomGrid
-                        CreateNewRoom(i, j, necessaryDoors);
+                        //Spawn a new room with necessaryDoors into that position
+                        CreateNewRoom(i, j, necessaryDoors, surroundingWalls);
 
                         //Mark new surrounding rooms
                         MarkNewRooms(i, j);
@@ -116,14 +120,29 @@ public class RoomSpawner : MonoBehaviour
         }
     }
 
-    private void CreateNewRoom(int x, int y, string necessaryDoors)
+    private void CreateNewRoom(int x, int y, string necessaryDoors, string surroundingWalls)
     {
-        bool fulfillsRequirements = false;
+        bool hasNecessaryDoors = false;
+        bool blocksSurroundingWalls = false;
+
+        if (surroundingWalls.Length == 0)
+        {
+            blocksSurroundingWalls = true;
+        }
+
         int rand = 0;
 
-        //Find a room that has the doors listed in necessaryDoors
-        while (!fulfillsRequirements)
+        //Find a room that has the doors listed in necessaryDoors and does not have any doors included in surroundingWalls
+        while (!(hasNecessaryDoors && blocksSurroundingWalls))
         {
+            hasNecessaryDoors = false;
+            blocksSurroundingWalls = false;
+
+            if (surroundingWalls.Length == 0)
+            {
+                blocksSurroundingWalls = true;
+            }
+
             //Get random room
             rand = Random.Range(0, templates.rooms.Length);
 
@@ -138,7 +157,19 @@ public class RoomSpawner : MonoBehaviour
                 }
                 else if (i == necessaryDoors.Length - 1)
                 {
-                    fulfillsRequirements = true;
+                    hasNecessaryDoors = true;
+                }
+            }
+
+            for (int j = 0; j < surroundingWalls.Length; j++)
+            {
+                if (roomDoors.Contains(surroundingWalls[j]))
+                {
+                    break;
+                }
+                else if (j == surroundingWalls.Length - 1)
+                {
+                    blocksSurroundingWalls = true;
                 }
             }
         }
@@ -157,7 +188,6 @@ public class RoomSpawner : MonoBehaviour
 
         //Add that room to the x, y on roomGrid
         roomGrid[x, y] = templates.rooms[rand].GetComponent<Room>().GetOpenings();
-
     }
 
     private void CreateDeadEnds()
@@ -190,7 +220,6 @@ public class RoomSpawner : MonoBehaviour
         {
             //Get random room
             rand = Random.Range(0, templates.rooms.Length);
-            Debug.Log(rand);
 
             //Get doors from room
             string roomDoors = templates.rooms[rand].GetComponent<Room>().GetOpenings();
@@ -246,7 +275,7 @@ public class RoomSpawner : MonoBehaviour
         }
     }
 
-    //Find each surrounding entrance to a room that needs to be created
+    //Find each adjacent entrance to a room that is going to be created
     private string FindNecessaryDoors(int x, int y)
     {
         //String that will contain all doors the room at x, y must have
@@ -274,6 +303,36 @@ public class RoomSpawner : MonoBehaviour
         }
 
         return necessaryDoors;
+    }
+
+    //Find the rooms adjacent to a room that is going to be created that does not have a door leading to that room
+    private string FindSurroundingWalls(int x, int y)
+    {
+        //String that will contain all directions the room at x, y cannot create a door
+        string surroundingWalls = "";
+
+        //If there is a room above and it does not contain a down entrance, add it to surroudingWalls
+        if (!roomGrid[x - 1, y].Equals("0") && !roomGrid[x - 1, y].Contains("D"))
+        {
+            surroundingWalls = surroundingWalls + "U";
+        }
+        //If there is a room to the left and it does not contain a right entrance, add it to surroudingWalls
+        if (!roomGrid[x, y - 1].Equals("0") && !roomGrid[x, y - 1].Contains("R"))
+        {
+            surroundingWalls = surroundingWalls + "L";
+        }
+        //If there is a room to the right and it does not contain a left entrance, add it to surroudingWalls
+        if (!roomGrid[x, y + 1].Equals("0") && !roomGrid[x, y + 1].Contains("L"))
+        {
+            surroundingWalls = surroundingWalls + "R";
+        }
+        //If there is a room below and it does not contain a up enterance, add it to surroudingWalls
+        if (!roomGrid[x + 1, y].Equals("0") && !roomGrid[x + 1, y].Contains("U"))
+        {
+            surroundingWalls = surroundingWalls + "D";
+        }
+
+        return surroundingWalls;
     }
 
     //Print the room grid to the console
