@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4f17af929412443bee96c9c740258a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRoomNumber: 10
-  maxRoomNumber: 25
+  minRoomNumber: 15
+  maxRoomNumber: 17
 --- !u!1 &2088924360
 GameObject:
   m_ObjectHideFlags: 0

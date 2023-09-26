@@ -27,35 +27,43 @@ public class RoomSpawner : MonoBehaviour
         //Get the room list
         templates = GameObject.FindGameObjectWithTag("RoomList").GetComponent<RoomTemplates>();
 
-        //Create the roomGrid in an odd number x odd number format
-        if(maxRoomNumber % 2 == 0)
-        {
-            gridLength = (2 * maxRoomNumber) + 1;
-        }
-        else
-        {
-            gridLength = (2 * maxRoomNumber);
-        }
+        //Create the roomGrid in an odd number by odd number format
+        gridLength = (2 * maxRoomNumber) - 1;
+
         roomGrid = new string[gridLength, gridLength];
 
-        //Fill in the grid with 0s, so that we don't get a certain error that occurs when comparing strings to null
-        for (int i = 0; i < gridLength; i++)
+        bool permittedFloor = false;
+
+        //Keep creating new maps on the roomGrid until we create one that fulfills the requirements
+        while (!permittedFloor)
         {
-            for (int j = 0; j < gridLength; j++)
+            //Fill in the grid with 0s, which represent an empty space
+            for (int i = 0; i < gridLength; i++)
             {
-                roomGrid[i, j] = "0";
+                for (int j = 0; j < gridLength; j++)
+                {
+                    roomGrid[i, j] = "0";
+                }
+
             }
 
+            permittedFloor = CreateNewFloor();
         }
 
+        //Instantiate rooms in the roomGrid in the actual scene
+        InstantiateFloor();
+
+        PrintRoomGrid();
+    }
+
+    //Creates a new floor
+    private bool CreateNewFloor()
+    {
         //Start roomGenerationTurn at 0
         roomGenerationTurn = 0;
 
         //Get a random room
         int rand = Random.Range(0, templates.rooms.Length);
-
-        //Instantiate that room
-        Instantiate(templates.rooms[rand], new Vector3(0, 0, 0), templates.rooms[rand].transform.rotation);
 
         //Add that room to the center of roomGrid
         roomGrid[(gridLength / 2), (gridLength / 2)] = templates.rooms[rand].GetComponent<Room>().GetOpenings();
@@ -66,19 +74,18 @@ public class RoomSpawner : MonoBehaviour
         //Mark the new rooms around the starting room
         MarkNewRooms((gridLength / 2), (gridLength / 2));
 
-        PrintRoomGrid();
+        //Set to false when a room is created on a whole grid check. If it is true by the end of the grid check, no new rooms were created,
+        //which means we must leave the loop as the map is closed and new rooms cannot be created
+        bool noRoomsCreated;
 
-        CreateNewFloor();
-    }
-
-    private void CreateNewFloor()
-    {
         while (!(minRoomNumber <= currentRoomNumber))
         {
+            noRoomsCreated = true;
+
             //Bump the roomGenerationTurn up 1
             roomGenerationTurn++;
 
-            //Find every "x" in the graph, which marks where a new room needs to be created
+            //Find every tile in the roomGrid that matches the roomGenerationTurn, which marks where a new room needs to be created
             for (int i = 0; i < gridLength; i++)
             {
                 for (int j = 0; j < gridLength; j++)
@@ -87,23 +94,30 @@ public class RoomSpawner : MonoBehaviour
                     {
                         //Find the doors that this room must generate to match up with the surrounding rooms
                         string necessaryDoors = FindNecessaryDoors(i, j);
-                        //Find the surrounding rooms that do not have a door leading here so a door is not generated leading into a wall
-                        string surroundingWalls = FindSurroundingWalls(i, j);
-                        Debug.Log(necessaryDoors);
-                        Debug.Log(surroundingWalls);
+
+                        //Find the directions that this room cannot generate a new door because there is a wall in that direction
+                        string unpermittedWalls = FindUnpermittedWalls(i, j);
 
                         //Spawn a new room with necessaryDoors into that position
-                        CreateNewRoom(i, j, necessaryDoors, surroundingWalls);
+                        CreateNewRoom(i, j, necessaryDoors, unpermittedWalls);
 
                         //Mark new surrounding rooms
                         MarkNewRooms(i, j);
+
+                        noRoomsCreated = false;
                     }
                 }
             }
 
             PrintRoomGrid();
+
+            if (noRoomsCreated)
+            {
+                break;
+            }
         }
 
+        //If the number of rooms generated is between the min and max number allowed, make every room that needs to be created a dead end
         if ((minRoomNumber <= currentRoomNumber) && (currentRoomNumber <= maxRoomNumber))
         {
             //Bump the roomGenerationTurn up 1
@@ -112,35 +126,45 @@ public class RoomSpawner : MonoBehaviour
             //Create dead ends to finish level
             CreateDeadEnds();
             PrintRoomGrid();
+
+            return true;
         }
 
-        if (maxRoomNumber < currentRoomNumber)
+        //If the number of rooms generated went under the minimum or over the maximum, regenerate the level
+        else
         {
-            Debug.Log("Limit stepped over");
+            Debug.Log("Not withing min and max. Reset necessary");
         }
+
+        return false;
     }
 
-    private void CreateNewRoom(int x, int y, string necessaryDoors, string surroundingWalls)
+    //Creates a new room at x, y while creating doors in the direction of necessaryDoors and not creating doors in the direction of unpermittedWalls
+    private void CreateNewRoom(int x, int y, string necessaryDoors, string unpermittedWalls)
     {
+        //If the room generated has the necessary doors listed
         bool hasNecessaryDoors = false;
-        bool blocksSurroundingWalls = false;
+        //If the room generated does not have doors leading into the walls of the surrounding rooms
+        bool blockUnpermittedWalls = false;
 
-        if (surroundingWalls.Length == 0)
+        //If there are no solid walls on any side of x, y, set blockUnpermittedWalls to true because we do not need to check for it
+        if (unpermittedWalls.Length == 0)
         {
-            blocksSurroundingWalls = true;
+            blockUnpermittedWalls = true;
         }
 
         int rand = 0;
 
-        //Find a room that has the doors listed in necessaryDoors and does not have any doors included in surroundingWalls
-        while (!(hasNecessaryDoors && blocksSurroundingWalls))
+        //Keep choosing random rooms from the list until we find a room that has the doors listed in necessaryDoors and does not have any doors included in unpermittedWalls
+        while (!(hasNecessaryDoors && blockUnpermittedWalls))
         {
+            //Reset the bool checks to their initial state
             hasNecessaryDoors = false;
-            blocksSurroundingWalls = false;
+            blockUnpermittedWalls = false;
 
-            if (surroundingWalls.Length == 0)
+            if (unpermittedWalls.Length == 0)
             {
-                blocksSurroundingWalls = true;
+                blockUnpermittedWalls = true;
             }
 
             //Get random room
@@ -149,6 +173,7 @@ public class RoomSpawner : MonoBehaviour
             //Get doors from room
             string roomDoors = templates.rooms[rand].GetComponent<Room>().GetOpenings();
 
+            //Check to see if the doors in this room match up with necessaryDoors
             for (int i = 0; i < necessaryDoors.Length; i++)
             {
                 if (!(roomDoors.Contains(necessaryDoors[i])))
@@ -161,35 +186,25 @@ public class RoomSpawner : MonoBehaviour
                 }
             }
 
-            for (int j = 0; j < surroundingWalls.Length; j++)
+            //Check to see if the doors in this room do not include doors in unpermittedWalls
+            for (int j = 0; j < unpermittedWalls.Length; j++)
             {
-                if (roomDoors.Contains(surroundingWalls[j]))
+                if (roomDoors.Contains(unpermittedWalls[j]))
                 {
                     break;
                 }
-                else if (j == surroundingWalls.Length - 1)
+                else if (j == unpermittedWalls.Length - 1)
                 {
-                    blocksSurroundingWalls = true;
+                    blockUnpermittedWalls = true;
                 }
             }
         }
-
-        //Get width of room
-        float width = templates.rooms[rand].GetComponent<SpriteRenderer>().bounds.size.x;
-
-        //Get height of room
-        float height = templates.rooms[rand].GetComponent<SpriteRenderer>().bounds.size.y;
-
-        int distanceFromCenterX = y - (gridLength / 2);
-        int distanceFromCenterY = -(x - (gridLength / 2));
-
-        //Instantiate that room
-        Instantiate(templates.rooms[rand], new Vector3(distanceFromCenterX * width, distanceFromCenterY * height, 0), templates.rooms[rand].transform.rotation);
 
         //Add that room to the x, y on roomGrid
         roomGrid[x, y] = templates.rooms[rand].GetComponent<Room>().GetOpenings();
     }
 
+    //Turn every remaining room that needs to be created and turn it into a dead end
     private void CreateDeadEnds()
     {
         //Find every "x" in the graph, which marks where a new dead end needs to be created
@@ -201,7 +216,6 @@ public class RoomSpawner : MonoBehaviour
                 {
                     //Find the doors that this room must generate to match up with the surrounding rooms
                     string necessaryDoors = FindNecessaryDoors(i, j);
-                    Debug.Log(necessaryDoors);
 
                     //Spawn a new room with necessaryDoors into that position and mark it on roomGrid
                     CreateNewDeadEnd(i, j, necessaryDoors);
@@ -210,6 +224,7 @@ public class RoomSpawner : MonoBehaviour
         }
     }
 
+    //Create a new dead end at x, y
     private void CreateNewDeadEnd(int x, int y, string necessaryDoors)
     {
         bool fulfillsRequirements = false;
@@ -229,18 +244,6 @@ public class RoomSpawner : MonoBehaviour
                 fulfillsRequirements = true;
             }
         }
-
-        //Get width of room
-        float width = templates.rooms[rand].GetComponent<SpriteRenderer>().bounds.size.x;
-
-        //Get height of room
-        float height = templates.rooms[rand].GetComponent<SpriteRenderer>().bounds.size.y;
-
-        int distanceFromCenterX = y - (gridLength / 2);
-        int distanceFromCenterY = -(x - (gridLength / 2));
-
-        //Instantiate that room
-        Instantiate(templates.rooms[rand], new Vector3(distanceFromCenterX * width, distanceFromCenterY * height, 0), templates.rooms[rand].transform.rotation);
 
         //Add that room to the x, y on roomGrid
         roomGrid[x, y] = templates.rooms[rand].GetComponent<Room>().GetOpenings();
@@ -306,33 +309,85 @@ public class RoomSpawner : MonoBehaviour
     }
 
     //Find the rooms adjacent to a room that is going to be created that does not have a door leading to that room
-    private string FindSurroundingWalls(int x, int y)
+    private string FindUnpermittedWalls(int x, int y)
     {
         //String that will contain all directions the room at x, y cannot create a door
-        string surroundingWalls = "";
+        string unpermittedWalls = "";
 
         //If there is a room above and it does not contain a down entrance, add it to surroudingWalls
         if (!roomGrid[x - 1, y].Equals("0") && !roomGrid[x - 1, y].Contains("D"))
         {
-            surroundingWalls = surroundingWalls + "U";
+            unpermittedWalls = unpermittedWalls + "U";
         }
         //If there is a room to the left and it does not contain a right entrance, add it to surroudingWalls
         if (!roomGrid[x, y - 1].Equals("0") && !roomGrid[x, y - 1].Contains("R"))
         {
-            surroundingWalls = surroundingWalls + "L";
+            unpermittedWalls = unpermittedWalls + "L";
         }
         //If there is a room to the right and it does not contain a left entrance, add it to surroudingWalls
         if (!roomGrid[x, y + 1].Equals("0") && !roomGrid[x, y + 1].Contains("L"))
         {
-            surroundingWalls = surroundingWalls + "R";
+            unpermittedWalls = unpermittedWalls + "R";
         }
         //If there is a room below and it does not contain a up enterance, add it to surroudingWalls
         if (!roomGrid[x + 1, y].Equals("0") && !roomGrid[x + 1, y].Contains("U"))
         {
-            surroundingWalls = surroundingWalls + "D";
+            unpermittedWalls = unpermittedWalls + "D";
         }
 
-        return surroundingWalls;
+        return unpermittedWalls;
+    }
+
+    //Instantiate rooms in the roomGrid
+    private void InstantiateFloor()
+    {
+        //Find every non-0 space in the roomGrid, then instantiate it into the scene
+        for (int i = 0; i < gridLength; i++)
+        {
+            for (int j = 0; j < gridLength; j++)
+            {
+                if (!roomGrid[i, j].Equals("0"))
+                {
+                    string necessaryDoors = FindNecessaryDoors(i, j);
+
+                    InstantiateRoom(i, j, necessaryDoors);
+                }
+            }
+        }
+    }
+
+    //Find a room that matches the doors of room x, y and instantiate it
+    private void InstantiateRoom(int x, int y, string necessaryDoors)
+    {
+        bool fulfillsRequirements = false;
+        int rand = 0;
+
+        //Find a room that has the doors listed in necessaryDoors
+        while (!fulfillsRequirements)
+        {
+            //Get random room
+            rand = Random.Range(0, templates.rooms.Length);
+
+            //Get doors from room
+            string roomDoors = templates.rooms[rand].GetComponent<Room>().GetOpenings();
+
+            if (roomDoors == necessaryDoors)
+            {
+                fulfillsRequirements = true;
+            }
+        }
+
+        //Get width of room
+        float width = templates.rooms[rand].GetComponent<SpriteRenderer>().bounds.size.x;
+
+        //Get height of room
+        float height = templates.rooms[rand].GetComponent<SpriteRenderer>().bounds.size.y;
+
+        int distanceFromCenterX = y - (gridLength / 2);
+        int distanceFromCenterY = -(x - (gridLength / 2));
+
+        //Instantiate that room
+        Instantiate(templates.rooms[rand], new Vector3(distanceFromCenterX * width, distanceFromCenterY * height, 0), templates.rooms[rand].transform.rotation);
     }
 
     //Print the room grid to the console
