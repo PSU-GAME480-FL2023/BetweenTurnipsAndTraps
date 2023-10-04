@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JoWalkN
+  m_Name: ShroomberMove
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,11 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 1731401315, guid: 674466a0249fe5d47b46399918f9a10c, type: 3}
+      value: {fileID: 21300000, guid: 696ee1a6dff3d91448aba15c1b89b1c7, type: 3}
     - time: 0.41666666
-      value: {fileID: -162230780, guid: 674466a0249fe5d47b46399918f9a10c, type: 3}
+      value: {fileID: 21300000, guid: 9f2d9068f99fdc540bc28c22c49e9202, type: 3}
     - time: 0.8333333
-      value: {fileID: 1731401315, guid: 674466a0249fe5d47b46399918f9a10c, type: 3}
+      value: {fileID: 21300000, guid: 696ee1a6dff3d91448aba15c1b89b1c7, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,9 +44,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 1731401315, guid: 674466a0249fe5d47b46399918f9a10c, type: 3}
-    - {fileID: -162230780, guid: 674466a0249fe5d47b46399918f9a10c, type: 3}
-    - {fileID: 1731401315, guid: 674466a0249fe5d47b46399918f9a10c, type: 3}
+    - {fileID: 21300000, guid: 696ee1a6dff3d91448aba15c1b89b1c7, type: 3}
+    - {fileID: 21300000, guid: 9f2d9068f99fdc540bc28c22c49e9202, type: 3}
+    - {fileID: 21300000, guid: 696ee1a6dff3d91448aba15c1b89b1c7, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

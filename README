@@ -1,3 +1,8 @@
 Between Turnips and Trash read me
 
-With the dungeon generation algorithm, the main function that creates the dungeon was completed and some bugs that caused infinite loops were fixed, the code was also refactored to be more readable. Unfortunately, the instantiation of the actual rooms for the player to walk around in is taking more time than expected due to it having more functions that need to be made for it than initially expected, but it will likely be finished by next Monday.
+With the dungeon generation algorithm, the main function that creates the dungeon was completed and some bugs that caused infinite loops were fixed,
+the code was also refactored to be more readable. Unfortunately, the instantiation of the actual rooms for the player to walk around in is taking
+ more time than expected due to it having more functions that need to be made for it than initially expected, but it will likely be finished by next Monday.
+Along with those more character assets and sprite sheets were added and the entire farma tile path was created.
+Our main character's animations were created but Ken is far behind on implementation. We have addressed it as a group and have created a catchup period.
+All of the title sets and sprites are found in the assets folder under sprites and tilesets.

@@ -24,10 +24,9 @@ public class JoController : MonoBehaviour
     GameObject actionTrigger;
     BoxCollider2D actionCollider;
     GameObject heldObject;
+    Rigidbody2D heldR2d;
     List<Collider2D> objectsToAction;
     ContactFilter2D actionFilter;
-
-    Camera mainCamera;
 
     Vector3 cameraPos;
     Rigidbody2D r2d;
@@ -45,11 +44,6 @@ public class JoController : MonoBehaviour
         actionTrigger = transform.Find("JoActionTrigger").gameObject;
         actionCollider = actionTrigger.GetComponent<BoxCollider2D>();
         objectsToAction = new List<Collider2D>();
-
-        if (mainCamera)
-        {
-            cameraPos = mainCamera.transform.position;
-        }
 
         animator = gameObject.GetComponent<Animator>();
     }
@@ -128,7 +122,9 @@ public class JoController : MonoBehaviour
                     else if(contents.gameObject.tag == "Throwable")
                     {
                         heldObject = contents.gameObject;
-                        Debug.Log(heldObject.name);
+                        heldR2d = heldObject.GetComponent<Rigidbody2D>();
+                        heldR2d.bodyType = RigidbodyType2D.Kinematic;
+                        heldR2d.isKinematic = false;
                         continue;
                     }
                 }
@@ -136,6 +132,11 @@ public class JoController : MonoBehaviour
             //throw held object
             else
             {
+                heldR2d.velocity = new Vector2( x_direction * 2, y_direction * 2);
+                heldR2d.bodyType = RigidbodyType2D.Dynamic;
+                heldR2d.isKinematic = true;
+
+                heldR2d = null;
                 heldObject = null;
             }
         }
@@ -185,7 +186,10 @@ public class JoController : MonoBehaviour
     private void FixedUpdate()
     {
         r2d.velocity = new Vector2(x_direction * max_speed, y_direction * max_speed);
-        heldObject.transform.position = new Vector3(t.position.x, t.position.y + 0.1f, 0.0f);
+        if (heldObject != null)
+        {
+            heldObject.transform.position = new Vector3(t.position.x, t.position.y + 0.1f, 0.0f);
+        }
 
         if(r2d.velocity == Vector2.zero)
         {

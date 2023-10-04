@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 829515076754925221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.21368894, y: -1.8471442, z: 0.05576922}
-  m_LocalScale: {x: 25, y: 25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8435994177753290459}
@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bf17fced10f754d9f37dd54fabdd2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_speed: 20
-  walk_speed: 10
+  max_speed: 1
+  walk_speed: 1
   x_direction: 0
   y_direction: 0
   direction: 83
