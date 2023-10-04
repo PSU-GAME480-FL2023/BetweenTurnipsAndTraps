@@ -20,6 +20,13 @@ public class JoController : MonoBehaviour
     const string JoWalkEast = "JoWalkE";
     const string JoWalkWest = "JoWalkW";
 
+    //triggers and actions
+    GameObject actionTrigger;
+    BoxCollider2D actionCollider;
+    GameObject heldObject;
+    List<Collider2D> objectsToAction;
+    ContactFilter2D actionFilter;
+
     Camera mainCamera;
 
     Vector3 cameraPos;
@@ -33,6 +40,11 @@ public class JoController : MonoBehaviour
         r2d = GetComponent<Rigidbody2D>();
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         mainCollider = GetComponent<BoxCollider2D>();
+
+        //grabbing out grab trigger
+        actionTrigger = transform.Find("JoActionTrigger").gameObject;
+        actionCollider = actionTrigger.GetComponent<BoxCollider2D>();
+        objectsToAction = new List<Collider2D>();
 
         if (mainCamera)
         {
@@ -51,6 +63,8 @@ public class JoController : MonoBehaviour
             x_direction = 1;
             if(Input.GetKeyDown(KeyCode.D)){
                 direction = 'E';
+                actionTrigger.transform.localPosition = new Vector3(0.075f, 0.0f, 0.0f);
+                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 90);
                 changeAnimationState(direction, JoWalkEast);
             }
         }
@@ -60,6 +74,8 @@ public class JoController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A))
             {
                 direction = 'W';
+                actionTrigger.transform.localPosition = new Vector3(-0.075f, 0.0f, 0.0f);
+                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 90);
                 changeAnimationState(direction, JoWalkWest);
             }
         }
@@ -74,6 +90,8 @@ public class JoController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 direction = 'N';
+                actionTrigger.transform.localPosition = new Vector3(0.0f, 0.075f, 0.0f);
+                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
                 changeAnimationState(direction, JoWalkNorth);
             }
         }
@@ -83,6 +101,8 @@ public class JoController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.S))
             {
                 direction = 'S';
+                actionTrigger.transform.localPosition = new Vector3(0.0f, -0.075f, 0.0f);
+                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
                 changeAnimationState(direction, JoWalkSouth);
             }
         }
@@ -92,9 +112,32 @@ public class JoController : MonoBehaviour
         }
 
         //Action Controls
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            //if no held object try to talk/pickup
+            if(heldObject == null)
+            {
+                //getting the object to action
+                actionCollider.OverlapCollider(actionFilter.NoFilter(), objectsToAction);
 
+                foreach (var contents in objectsToAction){
+                    if (contents.gameObject.tag == "NPC")
+                    {
+                        continue;
+                    }
+                    else if(contents.gameObject.tag == "Throwable")
+                    {
+                        heldObject = contents.gameObject;
+                        Debug.Log(heldObject.name);
+                        continue;
+                    }
+                }
+            }
+            //throw held object
+            else
+            {
+                heldObject = null;
+            }
         }
 
         if (Input.GetKey(KeyCode.Q))
@@ -142,6 +185,7 @@ public class JoController : MonoBehaviour
     private void FixedUpdate()
     {
         r2d.velocity = new Vector2(x_direction * max_speed, y_direction * max_speed);
+        heldObject.transform.position = new Vector3(t.position.x, t.position.y + 0.1f, 0.0f);
 
         if(r2d.velocity == Vector2.zero)
         {
