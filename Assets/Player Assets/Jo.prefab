@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bf17fced10f754d9f37dd54fabdd2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  cash: 0
   max_speed: 1
-  walk_speed: 1
+  current_speed: 0
   x_direction: 0
   y_direction: 0
   direction: 83
@@ -232,6 +234,18 @@ PrefabInstance:
     - target: {fileID: 6424524284914295605, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
       propertyPath: m_Name
       value: JoActionTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459468749144434435, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
+      propertyPath: m_Color.b
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459468749144434435, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
+      propertyPath: m_Color.g
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459468749144434435, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
+      propertyPath: m_Color.r
+      value: 0.21960786
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
