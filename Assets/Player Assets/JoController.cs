@@ -1,12 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //This Script Handles the Basic moverments and actions of the player character
 public class JoController : MonoBehaviour
 {
+    //Jo's attributes
+    public int health;
+    public int cash;
+    //public object action1
+    //public object action2
     public float max_speed;
-    public float walk_speed;
+    public float current_speed;
     public int x_direction = 0;
     public int y_direction = 0;
 
@@ -20,14 +24,16 @@ public class JoController : MonoBehaviour
     const string JoWalkEast = "JoWalkE";
     const string JoWalkWest = "JoWalkW";
 
-    //triggers and actions
+    //Iteraction and Throw objects
     GameObject actionTrigger;
     BoxCollider2D actionCollider;
-    GameObject heldObject;
-    Rigidbody2D heldR2d;
     List<Collider2D> objectsToAction;
     ContactFilter2D actionFilter;
+    GameObject heldObject;
+    Rigidbody2D heldR2d;
+    Collider2D heldCollider;
 
+    //Basics
     Vector3 cameraPos;
     Rigidbody2D r2d;
     BoxCollider2D mainCollider;
@@ -123,8 +129,9 @@ public class JoController : MonoBehaviour
                     {
                         heldObject = contents.gameObject;
                         heldR2d = heldObject.GetComponent<Rigidbody2D>();
-                        heldR2d.bodyType = RigidbodyType2D.Kinematic;
-                        heldR2d.isKinematic = false;
+                        heldCollider = heldObject.GetComponent<Collider2D>();
+
+                        heldCollider.isTrigger = true;
                         continue;
                     }
                 }
@@ -132,21 +139,23 @@ public class JoController : MonoBehaviour
             //throw held object
             else
             {
-                heldR2d.velocity = new Vector2( x_direction * 2, y_direction * 2);
-                heldR2d.bodyType = RigidbodyType2D.Dynamic;
-                heldR2d.isKinematic = true;
 
+                if(x_direction == 0 && y_direction == 0)
+                {
+                    heldCollider.isTrigger = false;
+                }
+                else
+                {
+                    heldR2d.velocity = new Vector2( x_direction * 1.5f, y_direction * 1.5f);
+                }
+
+                heldCollider = null;
                 heldR2d = null;
                 heldObject = null;
             }
         }
 
         if (Input.GetKey(KeyCode.Q))
-        {
-
-        }
-
-        if (Input.GetKey(KeyCode.Space))
         {
 
         }
@@ -195,6 +204,11 @@ public class JoController : MonoBehaviour
         {
             changeAnimationState('S', JoSouthIdle);
         }
+    }
+
+    public void hurtJo(Vector2 painDirection, int damage)
+    {
+
     }
 
     //Animation

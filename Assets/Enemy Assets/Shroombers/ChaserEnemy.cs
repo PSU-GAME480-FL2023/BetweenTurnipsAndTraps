@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChaserEnemy : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 1;
+    //Attributes
+    public int health;
+    public float _speed = 1;
+    public int damage;
 
     private Rigidbody2D _body;
     private JoAwareness _joAware;
     private Vector2 _distance;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -22,6 +24,9 @@ public class ChaserEnemy : MonoBehaviour
     {
         UpdateDirection();
         SetVelocity();
+
+        //Check if we collided with Jo
+
     }
 
     private void UpdateDirection()
