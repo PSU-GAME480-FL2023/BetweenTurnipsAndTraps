@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -1356,7 +1356,7 @@ TextureImporter:
       Grass_Tile_layers2_48: -1401940117
       Grass_Tile_layers2_24: -891490894
       Grass_Tile_layers2_11: 1927264920
-      Grass_Tile_layers2_2: 1872737842
+      Grass_Tile_layers2_5: 1129240090
       Grass_Tile_layers2_38: -239659674
       Grass_Tile_layers2_14: 1652068710
       Grass_Tile_layers2_45: 791669867
@@ -1411,7 +1411,7 @@ TextureImporter:
       Grass_Tile_layers2_46: -1989934281
       Grass_Tile_layers2_15: 353882375
       Grass_Tile_layers2_57: 859808360
-      Grass_Tile_layers2_5: 1129240090
+      Grass_Tile_layers2_2: 1872737842
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
