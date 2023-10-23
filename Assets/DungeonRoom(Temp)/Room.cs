@@ -10,6 +10,16 @@ public class Room : MonoBehaviour
     public bool rightDoor;
     public bool downDoor;
 
+    public enum RoomType
+    {
+        start,
+        danger,
+        treasure,
+        stairs
+    }
+
+    public RoomType roomType;
+
     //Return the doors that this room has as a string formatted as "ULRD"
     public string GetOpenings()
     {
@@ -33,5 +43,10 @@ public class Room : MonoBehaviour
         }
 
         return openings;
+    }
+
+    public string GetRoomType()
+    {
+        return roomType.ToString();
     }
 }

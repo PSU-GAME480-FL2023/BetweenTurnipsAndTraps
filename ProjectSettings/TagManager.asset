@@ -10,7 +10,9 @@ TagManager:
   - Enemy
   - Projectile
   - Scorpio
-  - Trigger
+  - Triggers
+  - RoomSpawner
+  - DungeonManager
   layers:
   - Default
   - TransparentFX
