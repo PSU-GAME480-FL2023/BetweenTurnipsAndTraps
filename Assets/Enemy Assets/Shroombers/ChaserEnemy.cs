@@ -9,14 +9,14 @@ public class ChaserEnemy : MonoBehaviour
     public int damage;
 
     private Rigidbody2D _body;
-    private JoAwareness _joAware;
+    private EnemyAwareness _joAware;
     private Vector2 _distance;
 
     // Start is called before the first frame update
     private void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
-        _joAware = GetComponent<JoAwareness>();
+        _joAware = GetComponent<EnemyAwareness>();
     }
 
     // Update is called once per frame

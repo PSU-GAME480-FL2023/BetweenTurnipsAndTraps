@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class JoAwareness : MonoBehaviour
+public class EnemyAwareness : MonoBehaviour
 {
     public bool SeesJo;
     public Vector2 directionToJo;
+    public int health;
 
     [SerializeField]
     private float _joDistance;

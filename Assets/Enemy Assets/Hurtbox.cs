@@ -3,23 +3,43 @@ using UnityEngine;
 public class Hurtbox : MonoBehaviour
 {
     //Attributes
-    int damage;
-    Vector2 knockback;
+    public int damage;
+    public float knockback;
 
-    Collider2D hurtCollider;
+    BoxCollider2D hurtCollider;
+    Transform location;
+    Rigidbody2D body;
 
     void Start()
     {
-        hurtCollider = GetComponent<Collider2D>();
+        location = transform;
+        hurtCollider = GetComponent<BoxCollider2D>();
+        body = GetComponent<Rigidbody2D>();
     }
 
     //If Jo gets hit by the hurtbox hurt Jo
-    private void OnTriggerEnter2d(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "Jo")
         {
             var Jo = other.gameObject.GetComponent<JoController>();
-            Jo.hurtJo(knockback, damage);
+
+            //getting the angle on the velocity of the attacking object
+            float degrees = Mathf.Atan2(body.velocity.y, body.velocity.x);
+
+            var knockbackVector = new Vector2(Mathf.Cos(degrees) * knockback, Mathf.Sin(degrees) * knockback);
+
+            Debug.Log(knockbackVector);
+            Jo.hurtJo(knockbackVector, damage);
+
+            if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio")
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        else if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger")
+        {
+            Destroy(this.gameObject);
         }
     }
 }

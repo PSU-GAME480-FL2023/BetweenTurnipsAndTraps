@@ -55,6 +55,9 @@ MonoBehaviour:
   current_speed: 0
   x_direction: 0
   y_direction: 0
+  busy: 0
+  inVilliage: 0
+  isFarming: 0
   direction: 83
   cur_anim: 
 --- !u!50 &4020344826576654794
@@ -234,6 +237,10 @@ PrefabInstance:
     - target: {fileID: 6424524284914295605, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
       propertyPath: m_Name
       value: JoActionTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424524284914295605, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
+      propertyPath: m_TagString
+      value: Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 6459468749144434435, guid: 67c6215487aea9f42a6bdda3fbb07002, type: 3}
       propertyPath: m_Color.b

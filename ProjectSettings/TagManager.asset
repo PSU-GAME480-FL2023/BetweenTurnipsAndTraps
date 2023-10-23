@@ -8,6 +8,9 @@ TagManager:
   - Jo
   - Throwable
   - Enemy
+  - Projectile
+  - Scorpio
+  - Trigger
   layers:
   - Default
   - TransparentFX

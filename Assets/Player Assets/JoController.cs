@@ -13,6 +13,9 @@ public class JoController : MonoBehaviour
     public float current_speed;
     public int x_direction = 0;
     public int y_direction = 0;
+    public bool busy = false;
+    public bool inVilliage = false;
+    public bool isFarming = false;
 
     //Animation
     Animator animator;
@@ -57,119 +60,125 @@ public class JoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Movement controls
-        if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+        // If we are busy do not allow the user input
+        if (!busy)
         {
-            x_direction = 1;
-            if(Input.GetKeyDown(KeyCode.D)){
-                direction = 'E';
-                actionTrigger.transform.localPosition = new Vector3(0.075f, 0.0f, 0.0f);
-                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 90);
-                changeAnimationState(direction, JoWalkEast);
-            }
-        }
-        else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            x_direction = -1;
-            if (Input.GetKeyDown(KeyCode.A))
+            // Movement controls and actions
+            if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             {
-                direction = 'W';
-                actionTrigger.transform.localPosition = new Vector3(-0.075f, 0.0f, 0.0f);
-                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 90);
-                changeAnimationState(direction, JoWalkWest);
-            }
-        }
-        else
-        {
-            x_direction = 0;
-        }
-
-        if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            y_direction = 1;
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                direction = 'N';
-                actionTrigger.transform.localPosition = new Vector3(0.0f, 0.075f, 0.0f);
-                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
-                changeAnimationState(direction, JoWalkNorth);
-            }
-        }
-        else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
-        {
-            y_direction = -1;
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                direction = 'S';
-                actionTrigger.transform.localPosition = new Vector3(0.0f, -0.075f, 0.0f);
-                actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
-                changeAnimationState(direction, JoWalkSouth);
-            }
-        }
-        else
-        {
-            y_direction = 0;
-        }
-
-        //Action Controls
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //if no held object try to talk/pickup
-            if(heldObject == null)
-            {
-                //getting the object to action
-                actionCollider.OverlapCollider(actionFilter.NoFilter(), objectsToAction);
-
-                foreach (var contents in objectsToAction){
-                    if (contents.gameObject.tag == "NPC")
-                    {
-                        continue;
-                    }
-                    else if(contents.gameObject.tag == "Throwable")
-                    {
-                        heldObject = contents.gameObject;
-                        heldR2d = heldObject.GetComponent<Rigidbody2D>();
-                        heldCollider = heldObject.GetComponent<Collider2D>();
-
-                        heldCollider.isTrigger = true;
-                        continue;
-                    }
+                x_direction = 1;
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    direction = 'E';
+                    actionTrigger.transform.localPosition = new Vector3(0.075f, 0.0f, 0.0f);
+                    actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 90);
+                    changeAnimationState(direction, JoWalkEast);
                 }
             }
-            //throw held object
+            else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            {
+                x_direction = -1;
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    direction = 'W';
+                    actionTrigger.transform.localPosition = new Vector3(-0.075f, 0.0f, 0.0f);
+                    actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 90);
+                    changeAnimationState(direction, JoWalkWest);
+                }
+            }
             else
             {
+                x_direction = 0;
+            }
 
-                if(x_direction == 0 && y_direction == 0)
+            if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+            {
+                y_direction = 1;
+                if (Input.GetKeyDown(KeyCode.W))
                 {
-                    heldCollider.isTrigger = false;
+                    direction = 'N';
+                    actionTrigger.transform.localPosition = new Vector3(0.0f, 0.075f, 0.0f);
+                    actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
+                    changeAnimationState(direction, JoWalkNorth);
                 }
+            }
+            else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+            {
+                y_direction = -1;
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    direction = 'S';
+                    actionTrigger.transform.localPosition = new Vector3(0.0f, -0.075f, 0.0f);
+                    actionTrigger.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
+                    changeAnimationState(direction, JoWalkSouth);
+                }
+            }
+            else
+            {
+                y_direction = 0;
+            }
+
+            //Action Controls
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //if no held object try to talk/pickup
+                if (heldObject == null)
+                {
+                    //getting the object to action
+                    actionCollider.OverlapCollider(actionFilter.NoFilter(), objectsToAction);
+
+                    foreach (var contents in objectsToAction)
+                    {
+                        if (contents.gameObject.tag == "NPC")
+                        {
+                            continue;
+                        }
+                        else if (contents.gameObject.tag == "Throwable")
+                        {
+                            heldObject = contents.gameObject;
+                            heldR2d = heldObject.GetComponent<Rigidbody2D>();
+                            heldCollider = heldObject.GetComponent<Collider2D>();
+
+                            heldCollider.isTrigger = true;
+                            continue;
+                        }
+                    }
+                }
+                //throw held object
                 else
                 {
-                    heldR2d.velocity = new Vector2( x_direction * 1.5f, y_direction * 1.5f);
+                    if (x_direction == 0 && y_direction == 0)
+                    {
+                        heldR2d.velocity = new Vector2(0.0f, 0.0f);
+                        heldCollider.isTrigger = false;
+                    }
+                    else
+                    {
+                        heldR2d.velocity = new Vector2(x_direction * 1.5f, y_direction * 1.5f);
+                    }
+
+                    heldCollider = null;
+                    heldR2d = null;
+                    heldObject = null;
                 }
-
-                heldCollider = null;
-                heldR2d = null;
-                heldObject = null;
             }
-        }
 
-        if (Input.GetKey(KeyCode.Q))
-        {
+            if (Input.GetKey(KeyCode.Q))
+            {
 
-        }
+            }
 
-        //Left click
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
+            //Left click
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
 
-        }
+            }
 
-        //Right click
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
+            //Right click
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
 
+            }
         }
 
         //Menu Controls
@@ -194,23 +203,62 @@ public class JoController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        r2d.velocity = new Vector2(x_direction * max_speed, y_direction * max_speed);
+        var newVelocity = r2d.velocity;
+        if(x_direction != 0 && ((x_direction == 1  && newVelocity.x < max_speed) || (x_direction == -1 && newVelocity.x > -max_speed)))
+        {
+            newVelocity.x = r2d.velocity.x + (.5f * x_direction);
+        }
+        if (y_direction != 0 && ((y_direction == 1 && newVelocity.y < max_speed) || (y_direction == -1 && newVelocity.y > -max_speed)))
+        {
+            newVelocity.y = r2d.velocity.y + (.5f * y_direction);
+        }
+
+        if(x_direction == 0 && busy == false && Mathf.Abs(r2d.velocity.x) > .01 )
+        {
+            newVelocity.x = r2d.velocity.x * .75f;
+        }
+        if (y_direction == 0 && busy == false && Mathf.Abs(r2d.velocity.y) > .01)
+        {
+            newVelocity.y = r2d.velocity.y * .75f;
+        }
+
+        r2d.velocity = newVelocity;
+
         if (heldObject != null)
         {
-            heldObject.transform.position = new Vector3(t.position.x, t.position.y + 0.1f, 0.0f);
-        }
-
-        if(r2d.velocity == Vector2.zero)
-        {
-            changeAnimationState('S', JoSouthIdle);
+            heldObject.transform.position = new Vector3(t.position.x, t.position.y + (t.localScale.y * 0.1f), 0.0f);
         }
     }
 
-    public void hurtJo(Vector2 painDirection, int damage)
+    public void hurtJo(Vector2 knockback, int damage)
     {
+        // Damage Jo
+        health -= damage;
+        Debug.Log("Hurt");
 
+        // Drop item
+        if (heldObject != null)
+        {
+            heldR2d.velocity = new Vector2(0.0f, 0.0f);
+            heldCollider.isTrigger = false;
+        }
+
+        // Apply the knockback to Jo's velocity
+        r2d.velocity = knockback;
+
+        if(health <= 0)
+        {
+            Debug.Log("DEATH");
+            //KILL JO
+        }
+
+        //busy = true;
     }
 
+    public Vector2 GetColliderCenter()
+    {
+        return new Vector2(mainCollider.transform.position.x + mainCollider.offset.x, mainCollider.transform.position.y + mainCollider.offset.y);
+    }
     //Animation
     void changeAnimationState(char direction, string anim)
     {
