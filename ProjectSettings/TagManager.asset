@@ -8,6 +8,8 @@ TagManager:
   - Jo
   - Throwable
   - Enemy
+  - RoomSpawner
+  - DungeonManager
   layers:
   - Default
   - TransparentFX

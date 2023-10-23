@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
 {
-    public GameObject[] rooms;
-    public GameObject[] deadEnds;
+    public Grid[] startingRooms;
+    public Grid[] dangerRooms;
+    public Grid[] treasureRooms;
+    public Grid[] stairsRooms;
 }
