@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a379a6a93744f0489fe2a1de8b0525, type: 3}
+  m_Name: tomato
+  m_EditorClassIdentifier: Assembly-CSharp::CropData
+  daysToGrow: 7
+  growProgressSprites:
+  - {fileID: 30719332, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: 150392996, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: -1857732128, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  readyToHarvestSprite: {fileID: 20954860, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  purchasePrice: 25
+  sellPrice: 55
+  onHarvestSprite: {fileID: -903887068, guid: 0dbf3aa888d99614d8992537cf890207, type: 3}

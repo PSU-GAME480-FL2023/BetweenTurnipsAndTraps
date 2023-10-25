@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a379a6a93744f0489fe2a1de8b0525, type: 3}
+  m_Name: fireFruit
+  m_EditorClassIdentifier: 
+  daysToGrow: 10
+  growProgressSprites:
+  - {fileID: 546867565, guid: a8cb992b2d4c64cc09777ca679eeb591, type: 3}
+  - {fileID: -776512364, guid: a8cb992b2d4c64cc09777ca679eeb591, type: 3}
+  - {fileID: -854613888, guid: a8cb992b2d4c64cc09777ca679eeb591, type: 3}
+  readyToHarvestSprite: {fileID: -877410879, guid: a8cb992b2d4c64cc09777ca679eeb591, type: 3}
+  purchasePrice: 100
+  sellPrice: 500
+  onHarvestSprite: {fileID: 1331766767, guid: cb72ec1c9bbb44ec1aa1947c277a8e72, type: 3}
