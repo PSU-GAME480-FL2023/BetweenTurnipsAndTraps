@@ -53,6 +53,7 @@ public class Crop : MonoBehaviour
         if(CanHarvest())
         {
             onHarvestCrop?.Invoke(curCrop);
+			Instantiate(curCrop.onHarvestSprite);
             Destroy(gameObject);
         }
     }
