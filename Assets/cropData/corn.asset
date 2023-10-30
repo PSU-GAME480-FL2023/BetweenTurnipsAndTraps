@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 03a379a6a93744f0489fe2a1de8b0525, type: 3}
   m_Name: corn
   m_EditorClassIdentifier: Assembly-CSharp::CropData
-  daysToGrow: 7
+  daysToGrow: 5
   growProgressSprites:
-  - {fileID: 2047332461, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  - {fileID: -674370541, guid: 7956b572987acfe45800421ea87a800f, type: 3}
   - {fileID: 925577960, guid: 7956b572987acfe45800421ea87a800f, type: 3}
   - {fileID: -1580214273, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  readyToHarvestSprite: {fileID: -1345539039, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  purchasePrice: 50
+  - {fileID: -1345539039, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: -571834053, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  readyToHarvestSprite: {fileID: 292336659, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  purchasePrice: 45
   sellPrice: 65
+  onHarvestSprite: {fileID: 16560607, guid: 0dbf3aa888d99614d8992537cf890207, type: 3}

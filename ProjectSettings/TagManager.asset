@@ -13,6 +13,10 @@ TagManager:
   - Triggers
   - RoomSpawner
   - DungeonManager
+  - Trigger
+  - Undefined
+  - Dialogue
+  - Crop
   layers:
   - Default
   - TransparentFX

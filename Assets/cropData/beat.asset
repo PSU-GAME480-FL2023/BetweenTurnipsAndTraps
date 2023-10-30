@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 03a379a6a93744f0489fe2a1de8b0525, type: 3}
   m_Name: beat
-  m_EditorClassIdentifier: Assembly-CSharp::CropData
-  daysToGrow: 6
+  m_EditorClassIdentifier: 
+  daysToGrow: 5
   growProgressSprites:
-  - {fileID: 970946841, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  - {fileID: 678514268, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  - {fileID: 30719332, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  readyToHarvestSprite: {fileID: 150392996, guid: 7956b572987acfe45800421ea87a800f, type: 3}
-  purchasePrice: 45
-  sellPrice: 65
+  - {fileID: -1753527854, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: 859375824, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: -1031217401, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  readyToHarvestSprite: {fileID: 129189104, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  purchasePrice: 35
+  sellPrice: 55
+  onHarvestSprite: {fileID: -1873116469, guid: 0dbf3aa888d99614d8992537cf890207, type: 3}

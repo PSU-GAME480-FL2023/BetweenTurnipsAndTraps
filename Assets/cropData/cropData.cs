@@ -9,4 +9,5 @@ public class CropData : ScriptableObject
     public Sprite readyToHarvestSprite;
     public int purchasePrice;
     public int sellPrice;
+	public Sprite onHarvestSprite;
 }

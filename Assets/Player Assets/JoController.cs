@@ -129,8 +129,11 @@ public class JoController : MonoBehaviour
 
                     foreach (var contents in objectsToAction)
                     {
-                        if (contents.gameObject.tag == "NPC")
+                        if (contents.gameObject.tag == "Dialogue")
                         {
+                            Debug.Log("WE ARE TALKING RIGHT NOW");
+
+                            contents.gameObject.GetComponent<InteractPrompt>().PrintDialogue();
                             continue;
                         }
                         else if (contents.gameObject.tag == "Throwable")
