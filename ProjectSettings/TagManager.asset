@@ -13,6 +13,9 @@ TagManager:
   - Triggers
   - RoomSpawner
   - DungeonManager
+  - Trigger
+  - Undefined
+  - Dialogue
   layers:
   - Default
   - TransparentFX
