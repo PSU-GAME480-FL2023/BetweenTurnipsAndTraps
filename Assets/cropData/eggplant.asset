@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a379a6a93744f0489fe2a1de8b0525, type: 3}
   m_Name: eggplant
   m_EditorClassIdentifier: Assembly-CSharp::CropData
-  daysToGrow: 0
-  growProgressSprites: []
-  readyToHarvestSprite: {fileID: 0}
-  purchasePrice: 0
-  sellPrice: 0
-  onHarvestSprite: {fileID: 0}
+  daysToGrow: 6
+  growProgressSprites:
+  - {fileID: 1175208732, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: -1145371309, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  - {fileID: -1238382191, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  readyToHarvestSprite: {fileID: 1158141254, guid: 7956b572987acfe45800421ea87a800f, type: 3}
+  purchasePrice: 45
+  sellPrice: 85
+  onHarvestSprite: {fileID: -315322405, guid: 0dbf3aa888d99614d8992537cf890207, type: 3}

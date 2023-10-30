@@ -16,6 +16,7 @@ TagManager:
   - Trigger
   - Undefined
   - Dialogue
+  - Crop
   layers:
   - Default
   - TransparentFX
