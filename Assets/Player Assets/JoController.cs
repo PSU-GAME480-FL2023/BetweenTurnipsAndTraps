@@ -13,6 +13,7 @@ public class JoController : MonoBehaviour
     public float current_speed;
     public int x_direction = 0;
     public int y_direction = 0;
+    private bool onIce = false;
     public bool busy = false;
     public bool inVilliage = false;
     public bool isFarming = false;
@@ -225,7 +226,16 @@ public class JoController : MonoBehaviour
             newVelocity.y = r2d.velocity.y * .75f;
         }
 
-        r2d.velocity = newVelocity;
+        //If the player is not on ice, make them move normally
+        if (onIce == false)
+        {
+            r2d.velocity = newVelocity;
+        }
+        //Otherwise, apply ice physics
+        else
+        {
+            r2d.AddForce(newVelocity);
+        }
 
         if (heldObject != null)
         {
@@ -287,5 +297,10 @@ public class JoController : MonoBehaviour
         //}
 
         return;
+    }
+
+    public void SetOnIce(bool onIce)
+    {
+        this.onIce = onIce;
     }
 }
