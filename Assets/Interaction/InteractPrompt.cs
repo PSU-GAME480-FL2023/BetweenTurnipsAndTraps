@@ -1,23 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractPrompt : MonoBehaviour
 {
-
+    public GameObject textPanel;
+    public Text dialogueText;
     BoxCollider2D zone;
     SpriteRenderer sprite;
-    public string dialogue;
+    public TextAsset textAsset;
+    string[] dialogue;
+    private bool started;
+    int index;
 
     // Start is called before the first frame update
     void Start()
     {
+        //make the text file a list of strings
+        dialogue = textAsset.text.Split('\n');
+
         sprite = GetComponent<SpriteRenderer>();
+    }
+
+    void Update()
+    {
+        if(started && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (index < dialogue.Length - 1)
+            {
+                index++;
+                dialogueText.text = "";
+                StartCoroutine(Typing());
+            }
+            else {
+                Debug.Log("HERE");
+                textPanel.SetActive(false);
+                started = false;
+            }
+        }
     }
 
     public void PrintDialogue()
     {
-        Debug.Log(dialogue);
+        textPanel.SetActive(true);
+        started = true;
+    }
+
+    IEnumerator Typing()
+    {
+        foreach(char letter in dialogue[index])
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(.05f);
+        }
+    }
+
+    public void NextLine()
+    {
+        if(index < dialogue.Length - 1)
+        {
+            index++;
+            dialogueText.text = "";
+            StartCoroutine(Typing());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
