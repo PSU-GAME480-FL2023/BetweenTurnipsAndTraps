@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     // Do we have enough crops to plant?
     public bool CanPlantCrop ()
     {
+        return false;
     }
     // Called when the buy crop button is pressed.
     public void OnBuyCropButton (CropData crop)
