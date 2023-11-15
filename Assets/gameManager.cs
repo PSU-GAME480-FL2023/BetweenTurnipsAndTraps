@@ -5,11 +5,12 @@ using UnityEngine.Events;
 using TMPro;
 public class GameManager : MonoBehaviour
 {
-    public int curDay;
+    public int curDay = 1;
     public int money;
     public int cropInventory;
     public CropData selectedCropToPlant;
-    public event UnityAction onNewDay;
+    
+	
     // Singleton
     public static GameManager instance;
     void Awake ()
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     // Do we have enough crops to plant?
     public bool CanPlantCrop ()
     {
-	return true;
+        return false;
     }
     // Called when the buy crop button is pressed.
     public void OnBuyCropButton (CropData crop)

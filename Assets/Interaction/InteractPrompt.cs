@@ -10,6 +10,8 @@ public class InteractPrompt : MonoBehaviour
     BoxCollider2D zone;
     SpriteRenderer sprite;
     public TextAsset textAsset;
+    public Sprite talker;
+    public Color background;
     string[] dialogue;
     private bool started;
     int index;
@@ -34,7 +36,6 @@ public class InteractPrompt : MonoBehaviour
                 StartCoroutine(Typing());
             }
             else {
-                Debug.Log("HERE");
                 textPanel.SetActive(false);
                 started = false;
             }
