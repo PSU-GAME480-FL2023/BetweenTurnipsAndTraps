@@ -7326,6 +7326,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ad60fab729ddd449cd8ad19f2d5dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1960694701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1960694704}
+  - component: {fileID: 1960694703}
+  - component: {fileID: 1960694702}
+  m_Layer: 0
+  m_Name: VilliageWarp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1960694702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960694701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be7c2dcf69d42b4ba10c2aec3c0ee0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: VillageTile
+--- !u!61 &1960694703
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960694701}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5, y: 3}
+  m_EdgeRadius: 0
+--- !u!4 &1960694704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960694701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.96, y: -6.88, z: 6.535443}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1999126826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7359,7 +7431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090985324437093179, guid: 368394174963d6b4f94fbd6b03d2f98b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.63
+      value: -3.74
       objectReference: {fileID: 0}
     - target: {fileID: 7090985324437093179, guid: 368394174963d6b4f94fbd6b03d2f98b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7605,6 +7677,10 @@ PrefabInstance:
       value: Sign
       objectReference: {fileID: 0}
     - target: {fileID: 3913782290434083499, guid: 5269d4a4c888aa74aba3e5fdbf1081bf, type: 3}
+      propertyPath: talker
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a40573e5e9794a42aedef13834195cc, type: 3}
+    - target: {fileID: 3913782290434083499, guid: 5269d4a4c888aa74aba3e5fdbf1081bf, type: 3}
       propertyPath: dialogue
       value: Hey What's Up
       objectReference: {fileID: 0}
@@ -7616,6 +7692,18 @@ PrefabInstance:
       propertyPath: textPanel
       value: 
       objectReference: {fileID: 2078011319}
+    - target: {fileID: 3913782290434083499, guid: 5269d4a4c888aa74aba3e5fdbf1081bf, type: 3}
+      propertyPath: background.b
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913782290434083499, guid: 5269d4a4c888aa74aba3e5fdbf1081bf, type: 3}
+      propertyPath: background.g
+      value: 0.8117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913782290434083499, guid: 5269d4a4c888aa74aba3e5fdbf1081bf, type: 3}
+      propertyPath: background.r
+      value: 0.909804
+      objectReference: {fileID: 0}
     - target: {fileID: 3913782290434083499, guid: 5269d4a4c888aa74aba3e5fdbf1081bf, type: 3}
       propertyPath: dialogueText
       value: 
