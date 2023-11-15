@@ -13,6 +13,8 @@ public class JoController : MonoBehaviour
     public float current_speed;
     public int x_direction = 0;
     public int y_direction = 0;
+    public float maxSpeedOnIce;
+    public float accelerationOnIce;
     private bool onIce = false;
     public bool busy = false;
     public bool inVilliage = false;
@@ -42,6 +44,7 @@ public class JoController : MonoBehaviour
     Rigidbody2D r2d;
     BoxCollider2D mainCollider;
     Transform t;
+    Vector3 respawnPoint;
 
     void Start()
     {
@@ -226,6 +229,10 @@ public class JoController : MonoBehaviour
             newVelocity.y = r2d.velocity.y * .75f;
         }
 
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector2 inputDirection = new Vector2(horizontalInput, verticalInput).normalized;
+
         //If the player is not on ice, make them move normally
         if (onIce == false)
         {
@@ -234,7 +241,8 @@ public class JoController : MonoBehaviour
         //Otherwise, apply ice physics
         else
         {
-            r2d.AddForce(newVelocity);
+            Vector2 targetVelocity = inputDirection * maxSpeedOnIce;
+            r2d.velocity = Vector2.Lerp(r2d.velocity, targetVelocity, Time.deltaTime * accelerationOnIce);
         }
 
         if (heldObject != null)
@@ -299,8 +307,20 @@ public class JoController : MonoBehaviour
         return;
     }
 
+    //Set if the player is using ice controls or not
     public void SetOnIce(bool onIce)
     {
         this.onIce = onIce;
+    }
+
+    //Update where the player will respawn.
+    public void UpdateRespawnPoint()
+    {
+        this.respawnPoint = this.transform.position;
+    }
+
+    public void Respawn()
+    {
+        this.transform.position = respawnPoint;
     }
 }

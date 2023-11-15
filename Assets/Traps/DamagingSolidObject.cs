@@ -8,18 +8,22 @@ public class DamagingSolidObject : MonoBehaviour
     public float knockback;
 
     //On player collision
-    /*void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Jo")
         {
             var Jo = other.gameObject.GetComponent<JoController>();
 
+            //Get player Rigidbody
+            Rigidbody2D joRigidbody = other.gameObject.GetComponent<Rigidbody2D>();
+
+            Vector2 knockbackDirection = (other.contacts[0].point - (Vector2)joRigidbody.transform.position).normalized;
+
             //getting the angle on the velocity of the attacking object
-            float degrees = Mathf.Atan2(body.velocity.y, body.velocity.x);
 
-            var knockbackVector = new Vector2(Mathf.Cos(degrees) * knockback, Mathf.Sin(degrees) * knockback);
+            joRigidbody.AddForce(knockback * -knockbackDirection, ForceMode2D.Impulse);
 
-            Jo.hurtJo(knockbackVector, damage);
+            //Jo.hurtJo(knockbackVector, damage);
         }
-    }*/
+    }
 }

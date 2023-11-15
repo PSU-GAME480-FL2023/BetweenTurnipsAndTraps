@@ -55,6 +55,9 @@ public class RoomChange : MonoBehaviour
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             camera.GetComponent<DungeonCamera>().ChangeCameraPosition(this.transform.position + new Vector3(0, 0, camera.transform.position.z));
 
+            //Update respawn point
+            collision.GetComponent<JoController>().UpdateRespawnPoint();
+
             //Spawn enemies in enemySpawners list
             for (int i = 0; i < enemySpawners.Length; i++)
             {
