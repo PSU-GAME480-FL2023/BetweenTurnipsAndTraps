@@ -32,12 +32,12 @@ public class Hurtbox : MonoBehaviour
             Debug.Log(knockbackVector);
             Jo.hurtJo(knockbackVector, damage);
 
-            if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio")
+            if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Untagged")
             {
                 Destroy(this.gameObject);
             }
         }
-        else if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger")
+        else if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Untagged")
         {
             Destroy(this.gameObject);
         }
