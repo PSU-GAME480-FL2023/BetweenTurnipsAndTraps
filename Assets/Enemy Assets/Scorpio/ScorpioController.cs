@@ -26,7 +26,7 @@ public class ScorpioController : MonoBehaviour
         {
             tick = 0;
 
-            var newProj = Instantiate(projectile, new Vector3(t.localPosition.x - 0.375f, t.localPosition.y + 0.5F, 0), Quaternion.Euler(0, 0, 90));
+            var newProj = Instantiate(projectile, new Vector3(t.localPosition.x - 0.375f, t.localPosition.y + 0.5F, -2), Quaternion.Euler(0, 0, 90));
             var temp = newProj.GetComponent<Rigidbody2D>();
             temp.velocity = new Vector2(-firespeed, 0);
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8929805940212558679}
   - component: {fileID: 8929805940212558678}
   - component: {fileID: 8929805940212558677}
+  - component: {fileID: -242983388663434261}
   m_Layer: 0
   m_Name: Scorpio
   m_TagString: Scorpio
@@ -124,6 +125,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3fc69a2d232dc4cbfd4450df1f6793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firerate: 1000
+  firerate: 333
   firespeed: 2
   projectile: {fileID: 4919937080822229552, guid: 6a4cc0a2cfde1d44781ea69fffbfdda6, type: 3}
+--- !u!114 &-242983388663434261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8929805940212558676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8e35f427e432d84b915423a9730f928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  speed: 10
+  damage: 10

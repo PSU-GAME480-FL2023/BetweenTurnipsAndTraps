@@ -10,9 +10,16 @@ public class HeatedFloor : MonoBehaviour
     //Amount of time the floor will stay heated
     public float heatTime;
 
+
     public Tilemap waterTilemap;
     public Tilemap floorTilemap;
     public Vector2 flowVector;
+
+    public float knockback;
+
+    public TileBase coolFloor;
+    public TileBase heatedFloor;
+
 
     private bool heated;
 
@@ -21,10 +28,10 @@ public class HeatedFloor : MonoBehaviour
     {
         heated = false;
 
-        HeatLoop();
+        StartCoroutine(HeatLoop());
     }
 
-    private void HeatLoop()
+    IEnumerator HeatLoop()
     {
         while (true)
         {
@@ -32,26 +39,51 @@ public class HeatedFloor : MonoBehaviour
             //Turn hurt off
             heated = false;
             //Change appearance
+            ReplaceTiles(coolFloor);
 
             //Wait for coolTime
-            Wait(coolTime);
+            yield return new WaitForSeconds(coolTime);
 
             //Go to heated tilemaps
             //Turn hurt on
             heated = true;
             //Change appearance
+            ReplaceTiles(heatedFloor);
 
             //Wait for heatTime
-            Wait(heatTime);
+            yield return new WaitForSeconds(heatTime);
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collider)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (collider.tag == "Jo" && heated == true)
+        if (other.gameObject.tag == "Jo" && heated == true)
         {
-            //Push player/object in that direction
-            collider.attachedRigidbody.AddForce(flowVector);
+            var Jo = other.gameObject.GetComponent<JoController>();
+
+            //Get player Rigidbody
+            Rigidbody2D joRigidbody = other.gameObject.GetComponent<Rigidbody2D>();
+
+            Vector2 knockbackDirection = (Vector2)joRigidbody.transform.position.normalized;
+
+            joRigidbody.AddForce(knockback * -knockbackDirection, ForceMode2D.Impulse);
+
+            //Jo.hurtJo(knockbackVector, damage);
+        }
+    }
+
+    private void ReplaceTiles(TileBase newTile)
+    {
+        Tilemap tilemap = GetComponent<Tilemap>();
+
+        BoundsInt bounds = tilemap.cellBounds;
+
+        foreach (var position in bounds.allPositionsWithin)
+        {
+            if (tilemap.HasTile(position))
+            {
+                tilemap.SetTile(position, newTile);
+            }
         }
     }
 
