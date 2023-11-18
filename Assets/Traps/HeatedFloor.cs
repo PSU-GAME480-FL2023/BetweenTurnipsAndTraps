@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class HeatedFloor : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HeatedFloor : MonoBehaviour
 
     public Tilemap waterTilemap;
     public Tilemap floorTilemap;
+    public Vector2 flowVector;
 
     private bool heated;
 
@@ -24,7 +26,7 @@ public class HeatedFloor : MonoBehaviour
 
     private void HeatLoop()
     {
-        while (1)
+        while (true)
         {
             //Start with cool tilemaps
             //Turn hurt off
