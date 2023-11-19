@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/VillageTile.unity
     guid: f0fbaef3225e84ce2b8d0fcb64ef1896
   - enabled: 1
-    path: Assets/Scenes/TrapTestingScene.unity
-    guid: e63aeab8e56dae0469e63a77bba79352
+    path: Assets/Scenes/TrapTestingScene2.unity
+    guid: 8474942e25955f642af3541bb9c14476
   m_configObjects: {}

@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be7c2dcf69d42b4ba10c2aec3c0ee0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: TrapTestingScene
+  sceneName: TrapTestingScene2
 --- !u!61 &521648214
 BoxCollider2D:
   m_ObjectHideFlags: 0

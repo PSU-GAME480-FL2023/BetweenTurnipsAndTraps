@@ -10,11 +10,6 @@ public class HeatedFloor : MonoBehaviour
     //Amount of time the floor will stay heated
     public float heatTime;
 
-
-    public Tilemap waterTilemap;
-    public Tilemap floorTilemap;
-    public Vector2 flowVector;
-
     public float knockback;
 
     public TileBase coolFloor;
