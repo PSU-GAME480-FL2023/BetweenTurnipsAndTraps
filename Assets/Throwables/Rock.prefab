@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4677349317225006434}
   - component: {fileID: 5793310381567263184}
   - component: {fileID: 2113275850812046969}
+  - component: {fileID: -6991300386738898716}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Throwable
@@ -80,7 +81,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 3
+  m_Constraints: 7
 --- !u!212 &2113275850812046969
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,3 +134,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-6991300386738898716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653352227913277752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e70964ba3de3c47ae0ac35973d0b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

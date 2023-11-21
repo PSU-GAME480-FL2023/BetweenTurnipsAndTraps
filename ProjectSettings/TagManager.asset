@@ -17,6 +17,7 @@ TagManager:
   - Undefined
   - Dialogue
   - Crop
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -161,8 +161,9 @@ public class JoController : MonoBehaviour
                     else
                     {
                         heldR2d.isKinematic = true;
-                        heldR2d.velocity = new Vector2(x_direction * 7f, y_direction * 1.5f);
-                        Debug.Log(heldR2d.velocity);
+                        heldR2d.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+                        heldR2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+                        heldR2d.velocity = new Vector2(x_direction * 7f, y_direction * 7f);
                     }
 
                     heldCollider = null;
