@@ -5,6 +5,8 @@ using UnityEngine.Events;
 public class Crop : MonoBehaviour
 {
     private CropData curCrop;
+	private CropData sellPrice;
+	private CropData purchasePrice;
     private int plantDay;
     private int daysSinceLastWatered;
     public SpriteRenderer sr;
@@ -14,7 +16,6 @@ public class Crop : MonoBehaviour
     public void Plant (CropData crop)
     {
         curCrop = crop;
-        plantDay = GameManager.instance.curDay;
         daysSinceLastWatered = 1;
         UpdateCropSprite();
         onPlantCrop?.Invoke(crop);
@@ -54,6 +55,7 @@ public class Crop : MonoBehaviour
         {
             onHarvestCrop?.Invoke(curCrop);
 			Instantiate(curCrop.onHarvestSprite);
+			GameManager.instance.totalPlant++;
             Destroy(gameObject);
         }
     }

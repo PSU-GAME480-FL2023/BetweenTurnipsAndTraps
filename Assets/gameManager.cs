@@ -5,10 +5,11 @@ using UnityEngine.Events;
 using TMPro;
 public class GameManager : MonoBehaviour
 {
-    public int curDay = 1;
+    public int curDay;
     public int money;
     public int cropInventory;
     public CropData selectedCropToPlant;
+	public int totalPlant;
     
 	
     // Singleton
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
     }
     // Called when a crop has been planted.
     // Listening to the Crop.onPlantCrop event.
-    public void OnPlantCrop (CropData cop)
+    public void OnPlantCrop (CropData crop)
     {
     }
     // Called when a crop has been harvested.
