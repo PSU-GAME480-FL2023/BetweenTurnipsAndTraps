@@ -19,6 +19,7 @@ public class JoController : MonoBehaviour
     public bool busy = false;
     public bool inVilliage = false;
     public bool isFarming = false;
+    public bool isAttacking = false;
 
     //Animation
     Animator animator;
@@ -135,8 +136,6 @@ public class JoController : MonoBehaviour
                     {
                         if (contents.gameObject.tag == "Dialogue")
                         {
-                            Debug.Log("WE ARE TALKING RIGHT NOW");
-
                             contents.gameObject.GetComponent<InteractPrompt>().PrintDialogue();
                             continue;
                         }
@@ -161,7 +160,9 @@ public class JoController : MonoBehaviour
                     }
                     else
                     {
-                        heldR2d.velocity = new Vector2(x_direction * 1.5f, y_direction * 1.5f);
+                        heldR2d.isKinematic = true;
+                        heldR2d.velocity = new Vector2(x_direction * 7f, y_direction * 1.5f);
+                        Debug.Log(heldR2d.velocity);
                     }
 
                     heldCollider = null;
@@ -178,7 +179,11 @@ public class JoController : MonoBehaviour
             //Left click
             if (Input.GetKey(KeyCode.Mouse0))
             {
-
+                if (heldObject == null)
+                {
+                    animator.SetBool("isAttack", true);
+                    isAttacking = true;
+                }
             }
 
             //Right click
@@ -231,6 +236,22 @@ public class JoController : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        if (isAttacking)
+        {
+            actionCollider.OverlapCollider(actionFilter.NoFilter(), objectsToAction);
+
+            foreach (var contents in objectsToAction)
+            {
+                if (contents.gameObject.tag == "Enemy" || contents.gameObject.tag == "Scorpio")
+                {
+                    if(contents.gameObject.GetComponent<Enemy>().isHurt == false)
+                    {
+                        contents.gameObject.GetComponent<Enemy>().Hurt(5);
+                    }
+                }
+            }
+        }
+
         Vector2 inputDirection = new Vector2(horizontalInput, verticalInput).normalized;
 
         //If the player is not on ice, make them move normally
@@ -245,12 +266,20 @@ public class JoController : MonoBehaviour
             r2d.velocity = Vector2.Lerp(r2d.velocity, targetVelocity, Time.deltaTime * accelerationOnIce);
         }
 
+        animator.SetFloat("verticalSpeed", r2d.velocity.y);
+        animator.SetFloat("horizontalSpeed", r2d.velocity.x);
+
         if (heldObject != null)
         {
             heldObject.transform.position = new Vector3(t.position.x, t.position.y + (t.localScale.y * 0.1f), 0.0f);
         }
     }
 
+    public void endAttack()
+    {
+        animator.SetBool("isAttack", false);
+        isAttacking = false;
+    }
     public void hurtJo(Vector2 knockback, int damage)
     {
         // Damage Jo

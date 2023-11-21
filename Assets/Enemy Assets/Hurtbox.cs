@@ -29,7 +29,6 @@ public class Hurtbox : MonoBehaviour
 
             var knockbackVector = new Vector2(Mathf.Cos(degrees) * knockback, Mathf.Sin(degrees) * knockback);
 
-            Debug.Log(knockbackVector);
             Jo.hurtJo(knockbackVector, damage);
 
             if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Untagged")
