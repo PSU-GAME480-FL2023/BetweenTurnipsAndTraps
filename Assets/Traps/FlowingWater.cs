@@ -46,7 +46,7 @@ public class FlowingWater : MonoBehaviour
     //When player/object is in collider for flowing water
     private void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.tag == "Jo")
+        if (collider.tag == "Jo" && collider.GetComponent<JoController>().GetFlying() == false)
         {
             //Push player/object in that direction
             collider.attachedRigidbody.AddForce(flowVector);

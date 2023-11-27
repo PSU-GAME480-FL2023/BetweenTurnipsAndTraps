@@ -18,6 +18,9 @@ TagManager:
   - Dialogue
   - Crop
   - Wall
+  - Consumable
+  - Trap
+  - Seed
   layers:
   - Default
   - TransparentFX

@@ -20,6 +20,8 @@ public class JoController : MonoBehaviour
     public bool inVilliage = false;
     public bool isFarming = false;
     public bool isAttacking = false;
+    private bool flying = false;
+    private bool fruitActive = false;
 
     //Animation
     Animator animator;
@@ -37,6 +39,8 @@ public class JoController : MonoBehaviour
     List<Collider2D> objectsToAction;
     ContactFilter2D actionFilter;
     GameObject heldObject;
+    public GameObject[] heldObjects;
+    public int[] heldObjectsAmmo;
     Rigidbody2D heldR2d;
     Collider2D heldCollider;
 
@@ -194,6 +198,58 @@ public class JoController : MonoBehaviour
             }
         }
 
+        //Use an item in tool bar
+        if (Input.GetKeyDown(KeyCode.Alpha1) && heldObject == null && heldObjects[0] != null)
+        {
+            //If object is throwable
+            if (heldObjects[0].tag == "Throwable")
+            {
+                //Create instance of fruit
+                GameObject fruitInstance = Instantiate(heldObjects[0]);
+
+                //Make Jo hold object
+                heldObject = fruitInstance;
+                heldR2d = heldObject.GetComponent<Rigidbody2D>();
+                heldCollider = heldObject.GetComponent<Collider2D>();
+
+                heldCollider.isTrigger = true;
+
+                //Remove one from ammo count
+                heldObjectsAmmo[0] = heldObjectsAmmo[0] - 1;
+
+                //Remove item if we are  out of ammo
+                if (heldObjectsAmmo[0] <= 0)
+                {
+                    heldObjects[0] = null;
+                }
+            }
+
+            //If object is consumable
+            else if (heldObjects[0].tag == "Consumable" && fruitActive == false)
+            {
+                //Mark fruit as in use
+                fruitActive = true;
+
+                //Create instance of fruit
+                GameObject fruitInstance = Instantiate(heldObjects[0]);
+
+                //Activate the effect of the item
+                fruitInstance.GetComponent<ConsumableItem>().ActivateEffect(this.transform.gameObject);
+
+                //Stop using fruit
+                fruitActive = false;
+
+                //Remove one from ammo count
+                heldObjectsAmmo[0] = heldObjectsAmmo[0] - 1;
+
+                //Remove item if we are  out of ammo
+                if (heldObjectsAmmo[0] <= 0)
+                {
+                    heldObjects[0] = null;
+                }
+            }
+        }
+
         //Menu Controls
         //Main Menu
         if (Input.GetKey(KeyCode.Escape))
@@ -272,7 +328,7 @@ public class JoController : MonoBehaviour
 
         if (heldObject != null)
         {
-            heldObject.transform.position = new Vector3(t.position.x, t.position.y + (t.localScale.y * 0.1f), 0.0f);
+            heldObject.transform.position = new Vector3(t.position.x, t.position.y + (t.localScale.y * 0.1f), this.transform.position.z);
         }
     }
 
@@ -341,6 +397,18 @@ public class JoController : MonoBehaviour
     public void SetOnIce(bool onIce)
     {
         this.onIce = onIce;
+    }
+
+    //Set flying status of player
+    public void SetFlying(bool flying)
+    {
+        this.flying = flying;
+    }
+
+    //Get flying status of player
+    public bool GetFlying()
+    {
+        return flying;
     }
 
     //Update where the player will respawn.

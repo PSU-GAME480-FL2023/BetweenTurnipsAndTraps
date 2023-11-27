@@ -12,7 +12,7 @@ public class Throwable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collisionTags = new List<string> { "Enemy", "Scorpio", "Throwable", "Wall", "Dialogue"};
+        collisionTags = new List<string> { "Enemy", "Scorpio", "Throwable", "Wall", "Dialogue", "Trap"};
         t = transform;
         thisObject = GetComponent<GameObject>();
         r2d = GetComponent<Rigidbody2D>();

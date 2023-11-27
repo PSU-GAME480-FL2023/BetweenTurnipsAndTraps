@@ -52,7 +52,9 @@ public class HeatedFloor : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Jo" && heated == true)
+
+        //Jo enters the gameObject
+        if (other.gameObject.tag == "Jo" && heated == true && other.GetComponent<JoController>().GetFlying() == false)
         {
             var Jo = other.gameObject.GetComponent<JoController>();
 
@@ -82,8 +84,10 @@ public class HeatedFloor : MonoBehaviour
         }
     }
 
-    IEnumerator Wait(float time)
+    //Deletes tile (make sure to have floor tilemap below all tile)
+    public void DeleteTile(Vector3Int floorCell)
     {
-        yield return new WaitForSeconds(time);
+        //Erase cell from fire tile map
+        GetComponent<Tilemap>().SetTile(floorCell, null);
     }
 }

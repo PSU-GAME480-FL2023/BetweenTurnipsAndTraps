@@ -84,14 +84,40 @@ public class Fountain : MonoBehaviour
         }
     }
 
-    public void DespawnWaterStream()
+    public void DespawnWaterStream(Vector3Int fountainCell)
     {
+        //Make the direction the water is pointing into a vector
+        Vector3Int waterFlowOffset = Vector3Int.zero;
 
+        switch (flowDirection)
+        {
+            case FlowDirection.Up:
+                waterFlowOffset.y = 1;
+                break;
+            case FlowDirection.Down:
+                waterFlowOffset.y = -1;
+                break;
+            case FlowDirection.Left:
+                waterFlowOffset.x = -1;
+                break;
+            case FlowDirection.Right:
+                waterFlowOffset.x = 1;
+                break;
+        }
+
+        Vector3Int currentCell = fountainCell + waterFlowOffset;
+
+        while (floorTilemap.GetTile(currentCell) != null)
+        {
+            //Until nextWaterTilePosition is not a floor tile, the last tile a water tile was spawned on was a grate, or nextwatertile is oob
+            waterTilemap.SetTile(currentCell, null);
+            currentCell += waterFlowOffset;
+        }
     }
 
+    //Get the position of every fountain cell in tilemap
     private Vector3Int[] GetFountainCells()
     {
-        //Establish bounds of 
         BoundsInt bounds = GetComponent<Tilemap>().cellBounds;
         List<Vector3Int> fountainCells = new List<Vector3Int>();
 
@@ -99,7 +125,6 @@ public class Fountain : MonoBehaviour
         {
             for (int y = bounds.y; y < bounds.y + bounds.size.y; y++)
             {
-                //Debug.Log("Hrrr");
                 Vector3Int cell = new Vector3Int(x, y, 0);
                 TileBase tile = GetComponent<Tilemap>().GetTile(cell);
 

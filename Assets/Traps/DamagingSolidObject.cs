@@ -25,5 +25,12 @@ public class DamagingSolidObject : MonoBehaviour
 
             //Jo.hurtJo(knockbackVector, damage);
         }
+
+        if (other.gameObject.tag == "Throwable")
+        {
+            Debug.Log(other.gameObject);
+            //Activate effect of throwable object
+            other.gameObject.GetComponent<ThrowableItem>().ActivateEffect();
+        }
     }
 }
