@@ -20,6 +20,7 @@ TagManager:
   - Wall
   - Consumable
   - Trap
+  - Seed
   layers:
   - Default
   - TransparentFX

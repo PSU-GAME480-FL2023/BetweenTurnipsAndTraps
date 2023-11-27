@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4086691270170280901}
   - component: {fileID: 2411427281419202609}
   - component: {fileID: 24118074733378086}
+  - component: {fileID: -3404981573595623904}
   m_Layer: 0
   m_Name: Lettuce
   m_TagString: Crop
@@ -101,3 +102,15 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.16, y: 0.16}
   m_Direction: 0
+--- !u!114 &-3404981573595623904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7125622112816676308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32e70964ba3de3c47ae0ac35973d0b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
