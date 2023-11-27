@@ -18,6 +18,8 @@ TagManager:
   - Dialogue
   - Crop
   - Wall
+  - Consumable
+  - Trap
   layers:
   - Default
   - TransparentFX

@@ -9,10 +9,10 @@ public class FallTrap : MonoBehaviour
 
 
     //On player enter
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerStay2D(Collider2D collider)
     {
         //If Jo enters the fall trap collider
-        if (collider.tag == "Jo")
+        if (collider.tag == "Jo" && collider.GetComponent<JoController>().GetFlying() == false)
         {
             //Pause control for ___ seconds
             //Child script will use its own animator here to play animation of player falling

@@ -11,6 +11,16 @@ public class Enemy : MonoBehaviour
     //Damage enemy does
     public int damage = 10;
 
+    //Elemental aspect of enemy
+    public enum ElementalAspect
+    {
+        Fire,
+        Water,
+        Ice
+    };
+
+    public ElementalAspect elementalAspect;
+
     public bool isHurt = false;
 
     //Clamp values

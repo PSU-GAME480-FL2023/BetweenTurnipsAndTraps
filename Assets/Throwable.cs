@@ -12,7 +12,7 @@ public class Throwable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        collisionTags = new List<string> { "Enemy", "Scorpio", "Throwable", "Wall", "Dialogue"};
+        collisionTags = new List<string> { "Enemy", "Scorpio", "Throwable", "Wall", "Dialogue", "Trap"};
         t = transform;
         thisObject = GetComponent<GameObject>();
         r2d = GetComponent<Rigidbody2D>();
@@ -28,7 +28,7 @@ public class Throwable : MonoBehaviour
             Debug.Log("Here");
             if (collisionTags.Contains(collision.gameObject.tag))
             {
-                Debug.Log("Here2");
+                Debug.Log(collision.gameObject.tag);
                 r2d.velocity = new Vector2(0.0f, 0.0f);
                 mainCollider.isTrigger = false;
             }
