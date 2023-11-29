@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class Enemy : MonoBehaviour
     private float yMax;
     Animator animator;
 
+    //when an enemy is killed
+    public static event Action<Enemy> OnEnemyDie;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,18 +57,20 @@ public class Enemy : MonoBehaviour
     public void Hurt(int damage)
     {
         health -= damage;
-        if(health <= 0)
-        {
-            animator.SetBool("isDead", true);
-        }
 
         isHurt = true;
         animator.SetBool("isHurt", true);
+
+        if (health <= 0)
+        {
+            animator.SetBool("isDead", true);
+        }
     }
 
     public void Die()
     {
-
+        Destroy(gameObject);
+        OnEnemyDie?.Invoke(this);
     }
 
     public void endHurt()

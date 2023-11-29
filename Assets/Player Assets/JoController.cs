@@ -140,7 +140,7 @@ public class JoController : MonoBehaviour
                     {
                         if (contents.gameObject.tag == "Dialogue")
                         {
-                            contents.gameObject.GetComponent<InteractPrompt>().PrintDialogue();
+                            contents.gameObject.GetComponent<InteractPrompt>().PrintDialogue(this);
                             busy = true;
                             continue;
                         }
