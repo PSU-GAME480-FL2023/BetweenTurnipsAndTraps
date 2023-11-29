@@ -6,7 +6,7 @@ public class sellBox : MonoBehaviour
 {
 
 	private CropData curCrop;
-	private CropData sellPrice;
+	private int sellPrice;
 	private CropData purchasePrice;
 	private int tempCash;
 	
@@ -21,10 +21,7 @@ public class sellBox : MonoBehaviour
         if(collision.gameObject.tag == "Crop")
         {
 				Destroy(gameObject);
-				tempCash = GameManager.instance.money + sellPrice;
-				GameManager.instance.money = tempCash;
-			
-			
+				GameManager.instance.money += sellPrice;
         }
     }
 }

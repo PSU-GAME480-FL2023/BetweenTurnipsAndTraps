@@ -21,6 +21,7 @@ public class InteractPrompt : MonoBehaviour
     {
         //make the text file a list of strings
         dialogue = textAsset.text.Split('\n');
+        index = 0;
 
         sprite = GetComponent<SpriteRenderer>();
     }
@@ -45,6 +46,9 @@ public class InteractPrompt : MonoBehaviour
     public void PrintDialogue()
     {
         textPanel.SetActive(true);
+        dialogueText.text = "";
+        StartCoroutine(Typing());
+
         started = true;
     }
 

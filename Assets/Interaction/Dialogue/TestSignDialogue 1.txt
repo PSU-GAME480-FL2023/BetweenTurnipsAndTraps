@@ -1,5 +1,0 @@
-This is a test Dialogue for the first sign in the game. To do dialogue start a .txt file and input text.
-To make text wait to display until the previous group of text has finished, make a new line character in the .txt file.
-That means press enter.
-This is the end of the dialogue. If you got this far you would have known to press [space] to iterate through the text.
-Goodbye!
