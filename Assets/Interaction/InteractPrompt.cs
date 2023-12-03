@@ -14,6 +14,8 @@ public class InteractPrompt : MonoBehaviour
     public Color background;
     string[] dialogue;
     private bool started;
+    private bool typing;
+    JoController curjo;
     int index;
 
     // Start is called before the first frame update
@@ -21,40 +23,60 @@ public class InteractPrompt : MonoBehaviour
     {
         //make the text file a list of strings
         dialogue = textAsset.text.Split('\n');
+        index = 0;
 
         sprite = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        if(started && Input.GetKeyDown(KeyCode.Space))
+        if (started && (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Return)))
         {
-            if (index < dialogue.Length - 1)
+            if (index < dialogue.Length - 1 && !typing)
             {
                 index++;
                 dialogueText.text = "";
                 StartCoroutine(Typing());
             }
-            else {
-                textPanel.SetActive(false);
-                started = false;
+            else if (!typing)
+            {
+                EraseText();
             }
         }
+        if (started && Input.GetKeyDown(KeyCode.Escape))
+        {
+            EraseText();
+        }
+    }
+    public void EraseText()
+    {
+        dialogueText.text = "";
+        index = 0;
+        textPanel.SetActive(false);
+        started = false;
+
+        curjo.busy = false;
     }
 
-    public void PrintDialogue()
+    public void PrintDialogue(JoController jo)
     {
+        curjo = jo;
         textPanel.SetActive(true);
+        dialogueText.text = "";
+        StartCoroutine(Typing());
+
         started = true;
     }
 
     IEnumerator Typing()
     {
+        typing = true;
         foreach(char letter in dialogue[index])
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(.05f);
         }
+        typing = false;
     }
 
     public void NextLine()

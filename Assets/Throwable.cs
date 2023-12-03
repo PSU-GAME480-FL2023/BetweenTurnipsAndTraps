@@ -25,10 +25,8 @@ public class Throwable : MonoBehaviour
     {
         if (r2d.velocity.x != 0 || r2d.velocity.y != 0)
         {
-            Debug.Log("Here");
             if (collisionTags.Contains(collision.gameObject.tag))
             {
-                Debug.Log(collision.gameObject.tag);
                 r2d.velocity = new Vector2(0.0f, 0.0f);
                 mainCollider.isTrigger = false;
             }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScorpioController : MonoBehaviour
 {
-    int tick;
+    bool isShooting;
     public int firerate;
     public float firespeed;
     public GameObject projectile;
@@ -19,18 +19,21 @@ public class ScorpioController : MonoBehaviour
 
     public FireDirection fireDirection;
 
+    Animator animator;
     BoxCollider2D mainCollider;
     Transform t;
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
+
+        animator.SetBool("isShooting", true);
+
         t = transform;
-        tick = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    void Shoot()
     {
         if(tick == firerate)
         {

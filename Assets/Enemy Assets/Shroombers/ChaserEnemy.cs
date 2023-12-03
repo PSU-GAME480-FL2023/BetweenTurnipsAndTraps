@@ -10,6 +10,7 @@ public class ChaserEnemy : MonoBehaviour
 
     private Rigidbody2D _body;
     private EnemyAwareness _joAware;
+    private Enemy enemy;
     private Vector2 _distance;
 
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class ChaserEnemy : MonoBehaviour
     {
         _body = GetComponent<Rigidbody2D>();
         _joAware = GetComponent<EnemyAwareness>();
+        enemy = GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,9 @@ public class ChaserEnemy : MonoBehaviour
 
     private void SetVelocity()
     {
-        _body.velocity = new Vector2(_joAware.directionToJo.x * _speed, _joAware.directionToJo.y * _speed);
+        if (enemy.health > 0 && !enemy.isHurt)
+            _body.velocity = new Vector2(_joAware.directionToJo.x * _speed, _joAware.directionToJo.y * _speed);
+        else
+            _body.velocity = new Vector2(0, 0);
     }
 }

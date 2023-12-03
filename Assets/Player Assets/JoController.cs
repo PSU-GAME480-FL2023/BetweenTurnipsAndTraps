@@ -140,7 +140,8 @@ public class JoController : MonoBehaviour
                     {
                         if (contents.gameObject.tag == "Dialogue")
                         {
-                            contents.gameObject.GetComponent<InteractPrompt>().PrintDialogue();
+                            contents.gameObject.GetComponent<InteractPrompt>().PrintDialogue(this);
+                            busy = true;
                             continue;
                         }
                         else if (contents.gameObject.tag == "Throwable")
@@ -196,56 +197,56 @@ public class JoController : MonoBehaviour
             {
 
             }
-        }
 
-        //Use an item in tool bar
-        if (Input.GetKeyDown(KeyCode.Alpha1) && heldObject == null && heldObjects[0] != null)
-        {
-            //If object is throwable
-            if (heldObjects[0].tag == "Throwable")
+            //Use an item in tool bar
+            if (Input.GetKeyDown(KeyCode.Alpha1) && heldObject == null && heldObjects[0] != null)
             {
-                //Create instance of fruit
-                GameObject fruitInstance = Instantiate(heldObjects[0]);
-
-                //Make Jo hold object
-                heldObject = fruitInstance;
-                heldR2d = heldObject.GetComponent<Rigidbody2D>();
-                heldCollider = heldObject.GetComponent<Collider2D>();
-
-                heldCollider.isTrigger = true;
-
-                //Remove one from ammo count
-                heldObjectsAmmo[0] = heldObjectsAmmo[0] - 1;
-
-                //Remove item if we are  out of ammo
-                if (heldObjectsAmmo[0] <= 0)
+                //If object is throwable
+                if (heldObjects[0].tag == "Throwable")
                 {
-                    heldObjects[0] = null;
+                    //Create instance of fruit
+                    GameObject fruitInstance = Instantiate(heldObjects[0]);
+
+                    //Make Jo hold object
+                    heldObject = fruitInstance;
+                    heldR2d = heldObject.GetComponent<Rigidbody2D>();
+                    heldCollider = heldObject.GetComponent<Collider2D>();
+
+                    heldCollider.isTrigger = true;
+
+                    //Remove one from ammo count
+                    heldObjectsAmmo[0] = heldObjectsAmmo[0] - 1;
+
+                    //Remove item if we are  out of ammo
+                    if (heldObjectsAmmo[0] <= 0)
+                    {
+                        heldObjects[0] = null;
+                    }
                 }
-            }
 
-            //If object is consumable
-            else if (heldObjects[0].tag == "Consumable" && fruitActive == false)
-            {
-                //Mark fruit as in use
-                fruitActive = true;
-
-                //Create instance of fruit
-                GameObject fruitInstance = Instantiate(heldObjects[0]);
-
-                //Activate the effect of the item
-                fruitInstance.GetComponent<ConsumableItem>().ActivateEffect(this.transform.gameObject);
-
-                //Stop using fruit
-                fruitActive = false;
-
-                //Remove one from ammo count
-                heldObjectsAmmo[0] = heldObjectsAmmo[0] - 1;
-
-                //Remove item if we are  out of ammo
-                if (heldObjectsAmmo[0] <= 0)
+                //If object is consumable
+                else if (heldObjects[0].tag == "Consumable" && fruitActive == false)
                 {
-                    heldObjects[0] = null;
+                    //Mark fruit as in use
+                    fruitActive = true;
+
+                    //Create instance of fruit
+                    GameObject fruitInstance = Instantiate(heldObjects[0]);
+
+                    //Activate the effect of the item
+                    fruitInstance.GetComponent<ConsumableItem>().ActivateEffect(this.transform.gameObject);
+
+                    //Stop using fruit
+                    fruitActive = false;
+
+                    //Remove one from ammo count
+                    heldObjectsAmmo[0] = heldObjectsAmmo[0] - 1;
+
+                    //Remove item if we are  out of ammo
+                    if (heldObjectsAmmo[0] <= 0)
+                    {
+                        heldObjects[0] = null;
+                    }
                 }
             }
         }
