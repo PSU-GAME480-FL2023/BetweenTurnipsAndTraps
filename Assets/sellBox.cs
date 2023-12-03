@@ -21,8 +21,8 @@ public class sellBox : MonoBehaviour
         if(collision.gameObject.tag == "Crop")
         {
 				Destroy(gameObject);
-				tempCash = GameManager.instance.money + sellPrice;
-				GameManager.instance.money = tempCash;
+				/*tempCash = GameManager.instance.money + sellPrice;
+				GameManager.instance.money = tempCash;*/
 			
 			
         }

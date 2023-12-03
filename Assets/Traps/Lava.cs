@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 //When placing tilemaps, make sure to put floor tile map below lava tilemap
 
-public class Lava : MonoBehaviour
+public class Lava : FallTrap
 {
     //Put out fire
     public void Harden(Vector3Int lavaCell)

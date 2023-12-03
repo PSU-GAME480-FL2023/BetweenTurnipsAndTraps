@@ -31,7 +31,7 @@ public class canBuy : MonoBehaviour
 	}
 }
 
-	public void purchase()
+	/*public void purchase()
 	{
 		if(canBuyIf = "true" && purchasePrice >= GameManager.instance.money)
 		// give player the item
@@ -39,5 +39,5 @@ public class canBuy : MonoBehaviour
 		tempMoney = GameManager.instance.money - purchasePrice;
 		
 		GameManager.instance.money = tempMoney;
-	}
+	}*/
 }

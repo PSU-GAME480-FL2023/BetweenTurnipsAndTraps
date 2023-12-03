@@ -250,6 +250,57 @@ public class JoController : MonoBehaviour
             }
         }
 
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && heldObject == null && heldObjects[1] != null)
+        {
+            //If object is throwable
+            if (heldObjects[1].tag == "Throwable")
+            {
+                //Create instance of fruit
+                GameObject fruitInstance = Instantiate(heldObjects[1]);
+
+                //Make Jo hold object
+                heldObject = fruitInstance;
+                heldR2d = heldObject.GetComponent<Rigidbody2D>();
+                heldCollider = heldObject.GetComponent<Collider2D>();
+
+                heldCollider.isTrigger = true;
+
+                //Remove one from ammo count
+                heldObjectsAmmo[1] = heldObjectsAmmo[1] - 1;
+
+                //Remove item if we are  out of ammo
+                if (heldObjectsAmmo[1] <= 0)
+                {
+                    heldObjects[1] = null;
+                }
+            }
+
+            //If object is consumable
+            else if (heldObjects[1].tag == "Consumable" && fruitActive == false)
+            {
+                //Mark fruit as in use
+                fruitActive = true;
+
+                //Create instance of fruit
+                GameObject fruitInstance = Instantiate(heldObjects[0]);
+
+                //Activate the effect of the item
+                fruitInstance.GetComponent<ConsumableItem>().ActivateEffect(this.transform.gameObject);
+
+                //Stop using fruit
+                fruitActive = false;
+
+                //Remove one from ammo count
+                heldObjectsAmmo[1] = heldObjectsAmmo[1] - 1;
+
+                //Remove item if we are  out of ammo
+                if (heldObjectsAmmo[1] <= 0)
+                {
+                    heldObjects[1] = null;
+                }
+            }
+        }
+
         //Menu Controls
         //Main Menu
         if (Input.GetKey(KeyCode.Escape))

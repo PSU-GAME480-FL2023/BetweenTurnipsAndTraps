@@ -27,7 +27,6 @@ public class RoomChange : MonoBehaviour
         }
 
         //Get size of each cell
-        Debug.Log(transform.parent);
         Vector3 cellSize = transform.parent.GetComponent<Grid>().cellSize;
 
         //Get width of room

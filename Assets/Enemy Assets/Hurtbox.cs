@@ -36,7 +36,7 @@ public class Hurtbox : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        else if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Untagged")
+        else if (this.tag == "Projectile" && other.gameObject.tag == "Wall")
         {
             Destroy(this.gameObject);
         }
