@@ -21,6 +21,7 @@ TagManager:
   - Consumable
   - Trap
   - Seed
+  - Treasure
   layers:
   - Default
   - TransparentFX

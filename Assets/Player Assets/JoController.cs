@@ -153,6 +153,11 @@ public class JoController : MonoBehaviour
                             busy = true;
                             continue;
                         }
+                        else if(contents.gameObject.tag == "Treasure")
+                        {
+                            var chest = contents.gameObject.GetComponent<TreasureChest>();
+                            chest.OpenChest();
+                        }
                         else if (contents.gameObject.tag == "Throwable")
                         {
                             heldObject = contents.gameObject;
@@ -431,6 +436,7 @@ public class JoController : MonoBehaviour
             heldR2d.velocity = new Vector2(0.0f, 0.0f);
             heldCollider.isTrigger = false;
         }
+        animator.Play("Hurt");
 
         // Apply the knockback to Jo's velocity
         r2d.velocity = knockback;
@@ -451,8 +457,10 @@ public class JoController : MonoBehaviour
 
     public void Dead()
     {
+        //Open Death UI Prompt User to quit
 
     }
+ 
 
     public Vector2 GetColliderCenter()
     {
