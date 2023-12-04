@@ -22,6 +22,7 @@ public class JoController : MonoBehaviour
     public bool isAttacking = false;
     private bool flying = false;
     private bool fruitActive = false;
+    public bool hurting = false;
 
     //Animation
     Animator animator;
@@ -32,6 +33,14 @@ public class JoController : MonoBehaviour
     const string JoWalkNorth = "JoWalkN";
     const string JoWalkEast = "JoWalkE";
     const string JoWalkWest = "JoWalkW";
+
+    //Audio
+    public AudioClip clipAttack;
+    public AudioClip clipHurt;
+    public AudioClip clipDie;
+    public AudioClip clipThrow;
+    public AudioClip clipGrab;
+
 
     //Iteraction and Throw objects
     GameObject actionTrigger;
@@ -325,22 +334,33 @@ public class JoController : MonoBehaviour
     private void FixedUpdate()
     {
         var newVelocity = r2d.velocity;
-        if(x_direction != 0 && ((x_direction == 1  && newVelocity.x < max_speed) || (x_direction == -1 && newVelocity.x > -max_speed)))
-        {
-            newVelocity.x = r2d.velocity.x + (.5f * x_direction);
-        }
-        if (y_direction != 0 && ((y_direction == 1 && newVelocity.y < max_speed) || (y_direction == -1 && newVelocity.y > -max_speed)))
-        {
-            newVelocity.y = r2d.velocity.y + (.5f * y_direction);
-        }
+        if (busy)
+            newVelocity = new Vector2(0f, 0f);
 
-        if(x_direction == 0 && busy == false && Mathf.Abs(r2d.velocity.x) > .01 )
+        else
         {
-            newVelocity.x = r2d.velocity.x * .75f;
-        }
-        if (y_direction == 0 && busy == false && Mathf.Abs(r2d.velocity.y) > .01)
-        {
-            newVelocity.y = r2d.velocity.y * .75f;
+            if (x_direction != 0 && ((x_direction == 1 && newVelocity.x < max_speed) || (x_direction == -1 && newVelocity.x > -max_speed)))
+            {
+                newVelocity.x = r2d.velocity.x + (.5f * x_direction);
+            }
+            if (y_direction != 0 && ((y_direction == 1 && newVelocity.y < max_speed) || (y_direction == -1 && newVelocity.y > -max_speed)))
+            {
+                newVelocity.y = r2d.velocity.y + (.5f * y_direction);
+            }
+
+            if (x_direction == 0 && busy == false && Mathf.Abs(r2d.velocity.x) > .01)
+            {
+                newVelocity.x = r2d.velocity.x * .75f;
+            }
+            else if (x_direction == 0 && busy == false)
+                newVelocity.x = 0.0f;
+
+            if (y_direction == 0 && busy == false && Mathf.Abs(r2d.velocity.y) > .01)
+            {
+                newVelocity.y = r2d.velocity.y * .75f;
+            }
+            else if (y_direction == 0 && busy == false)
+                newVelocity.y = 0.0f;
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -353,7 +373,7 @@ public class JoController : MonoBehaviour
             {
                 if (contents.gameObject.tag == "Enemy" || contents.gameObject.tag == "Scorpio")
                 {
-                    if(contents.gameObject.GetComponent<Enemy>().isHurt == false)
+                    if (contents.gameObject.GetComponent<Enemy>().isHurt == false)
                     {
                         contents.gameObject.GetComponent<Enemy>().Hurt(5);
                     }
@@ -381,7 +401,7 @@ public class JoController : MonoBehaviour
         if (heldObject != null)
         {
             heldObject.transform.position = new Vector3(t.position.x, t.position.y + (t.localScale.y * 0.1f), this.transform.position.z);
-        }
+        }    
     }
 
     public void endAttack()
@@ -393,7 +413,8 @@ public class JoController : MonoBehaviour
     {
         // Damage Jo
         health -= damage;
-        Debug.Log("Hurt");
+        hurting = true;
+        animator.SetBool("isHurt", true);
 
         // Drop item
         if (heldObject != null)
@@ -404,14 +425,24 @@ public class JoController : MonoBehaviour
 
         // Apply the knockback to Jo's velocity
         r2d.velocity = knockback;
+    }
 
-        if(health <= 0)
+    public void EndHurt()
+    {
+        if (health <= 0)
         {
-            Debug.Log("DEATH");
-            //KILL JO
+            animator.SetBool("isDead", true);
         }
+        else
+        {
+            hurting = false;
+            animator.SetBool("isHurt", false);
+        }
+    }
 
-        //busy = true;
+    public void Dead()
+    {
+
     }
 
     public Vector2 GetColliderCenter()

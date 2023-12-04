@@ -1,0 +1,2 @@
+Good, now that you know about throwing objects you should know about your main attacking ability.
+In the Dungeon, enemies will try their hardest to prevent you from continuiing to progess

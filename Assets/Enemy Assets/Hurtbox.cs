@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Hurtbox : MonoBehaviour
@@ -6,6 +7,7 @@ public class Hurtbox : MonoBehaviour
     public int damage;
     public float knockback;
 
+    List<string> collisionTags;
     BoxCollider2D hurtCollider;
     Transform location;
     Rigidbody2D body;
@@ -15,6 +17,8 @@ public class Hurtbox : MonoBehaviour
         location = transform;
         hurtCollider = GetComponent<BoxCollider2D>();
         body = GetComponent<Rigidbody2D>();
+
+        collisionTags = new List<string> { "Scorpio", "Trigger", "Untagged", "Dialogue", "Trap"};
     }
 
     //If Jo gets hit by the hurtbox hurt Jo
@@ -29,14 +33,15 @@ public class Hurtbox : MonoBehaviour
 
             var knockbackVector = new Vector2(Mathf.Cos(degrees) * knockback, Mathf.Sin(degrees) * knockback);
 
-            Jo.hurtJo(knockbackVector, damage);
+            if(!Jo.hurting)
+                Jo.hurtJo(knockbackVector, damage);
 
-            if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Untagged" && other.gameObject.tag != "Dialogue")
+            if (this.tag == "Projectile" && !collisionTags.Contains(other.gameObject.tag))
             {
                 Destroy(this.gameObject);
             }
         }
-        else if (this.tag == "Projectile" && other.gameObject.tag != "Scorpio" && other.gameObject.tag != "Trigger" && other.gameObject.tag != "Untagged" && other.gameObject.tag != "Dialogue")
+        else if (this.tag == "Projectile" && !collisionTags.Contains(other.gameObject.tag))
         {
             Destroy(this.gameObject);
         }

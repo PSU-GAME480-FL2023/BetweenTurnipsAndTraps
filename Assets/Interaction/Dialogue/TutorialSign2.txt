@@ -1,0 +1,3 @@
+Now that you know about throwing objects, you should learn about thown objects with special effects.
+Throw Fruits are objects that have special effects when you thrown them. To the right is a Water Fruit.
+The Water Fruit's effect can be used to put out certian traps. Try throwing the fruit at the fire to progress to the next room.

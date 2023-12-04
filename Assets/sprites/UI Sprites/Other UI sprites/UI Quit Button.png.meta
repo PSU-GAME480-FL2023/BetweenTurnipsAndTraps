@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e00a6f616a848dd4da44df989d1853f6
+guid: 05e05d41068953546856ef758108dbc6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,49 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI Big Play Button_0
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 35
-        width: 90
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 06e376b7080d72944a599ecef76b4ced
-      internalID: 1801078283
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI Big Play Button_1
-      rect:
-        serializedVersion: 2
-        x: 99
-        y: 35
-        width: 90
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a1c47338f9ff9f41aa6b6ab7d484aab
-      internalID: -471031448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI Big Play Button_2
+      name: UI Quit Button_0
       rect:
         serializedVersion: 2
         x: 3
@@ -160,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfe283588b43ebe48bc3a99973abada1
-      internalID: -116911205
+      spriteID: 71e6a95e51a55cb42ba5e11bbd2738a6
+      internalID: -709633825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Big Play Button_3
+      name: UI Quit Button_1
       rect:
         serializedVersion: 2
         x: 99
@@ -181,8 +139,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f0d366527d538643acb8d0be42698b9
-      internalID: 1959650691
+      spriteID: 458acd6c5dfd3194ebf0cc429a927f4b
+      internalID: 1675793966
       vertices: []
       indices: 
       edges: []
@@ -198,10 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI Big Play Button_3: 1959650691
-      UI Big Play Button_0: 1801078283
-      UI Big Play Button_2: -116911205
-      UI Big Play Button_1: -471031448
+      UI Quit Button_1: 1675793966
+      UI Quit Button_0: -709633825
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

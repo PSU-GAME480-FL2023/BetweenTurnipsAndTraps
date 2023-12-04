@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5141124523199980797}
   - component: {fileID: 5141124523199980798}
   - component: {fileID: 5141124523199980799}
+  - component: {fileID: 3981318400560479568}
   m_Layer: 0
   m_Name: ScorpioUp
   m_TagString: Scorpio
@@ -146,3 +147,23 @@ MonoBehaviour:
   damage: 10
   elementalAspect: 0
   isHurt: 0
+--- !u!95 &3981318400560479568
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141124523199980792}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 817b1eb6d7d7bb64fb2abc3e3521ae19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -2204,10 +2204,10 @@ TextureImporter:
       Hearts_25: -791661580
       Hearts_65: 791639070
       Hearts_63: -2020350589
-      Hearts_77: -211512409
       Hearts_94: -528669256
       Hearts_14: -272645401
       Hearts_42: 1155458702
+      Hearts_77: -211512409
       Hearts_34: 481372581
       Hearts_88: -243111765
       Hearts_22: -1673408296
