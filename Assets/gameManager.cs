@@ -14,10 +14,11 @@ public class GameManager : MonoBehaviour
 	
     // Singleton
     public static GameManager instance;
+
     void Awake ()
     {
         // Initialize the singleton.
-        if(instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }

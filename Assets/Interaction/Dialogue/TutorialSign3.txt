@@ -1,2 +1,5 @@
-Good, now that you know about throwing objects you should know about your main attacking ability.
-In the Dungeon, enemies will try their hardest to prevent you from continuiing to progess
+Good, now that you know about throwing objects you should learn how to attack.
+In the dungeon several different types of enemies will try to hurt you. One such enemy is the Shroomber to the right.
+Don't worry, we have it restrained for you to practice your attack.
+Activate your left click button on your mouse to attack. Most enemies take a couple of hits.
+Be careful not to get too close because it will still hurt you.

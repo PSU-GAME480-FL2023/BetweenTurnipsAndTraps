@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TreasureChest : MonoBehaviour
+{
+    public int cash;
+    public bool open;
+    public Sprite opened;
+    SpriteRenderer rend;
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        rend = GetComponent<SpriteRenderer>();
+        gameManager = GameManager.instance;
+        if(cash == 0)
+        {
+            cash = 5;
+        }
+    }
+    
+    public void OpenChest()
+    {
+        gameManager.money += cash;
+        rend.sprite = opened;
+    }
+}

@@ -10,7 +10,7 @@ public class MenuScript : MonoBehaviour
 
     public void OnStartPress()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 
     public void OnQuitPress()
