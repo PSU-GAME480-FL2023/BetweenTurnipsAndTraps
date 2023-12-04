@@ -167,6 +167,9 @@ public class JoController : MonoBehaviour
                 //throw held object
                 else
                 {
+                    //Turn its collider on
+                    heldObject.GetComponent<BoxCollider2D>().enabled = true;
+
                     if (x_direction == 0 && y_direction == 0)
                     {
                         heldR2d.velocity = new Vector2(0.0f, 0.0f);
@@ -216,6 +219,9 @@ public class JoController : MonoBehaviour
                     //Create instance of fruit
                     GameObject fruitInstance = Instantiate(heldObjects[0]);
 
+                    //Turn its collider off
+                    fruitInstance.GetComponent<BoxCollider2D>().enabled = false;
+
                     //Make Jo hold object
                     heldObject = fruitInstance;
                     heldR2d = heldObject.GetComponent<Rigidbody2D>();
@@ -260,13 +266,16 @@ public class JoController : MonoBehaviour
             }
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && heldObject == null && heldObjects[1] != null)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && heldObject == null && heldObjects[1] != null)
         {
             //If object is throwable
             if (heldObjects[1].tag == "Throwable")
             {
                 //Create instance of fruit
                 GameObject fruitInstance = Instantiate(heldObjects[1]);
+
+                //Turn its collider off
+                fruitInstance.GetComponent<BoxCollider2D>().enabled = false;
 
                 //Make Jo hold object
                 heldObject = fruitInstance;
@@ -495,9 +504,9 @@ public class JoController : MonoBehaviour
     }
 
     //Update where the player will respawn.
-    public void UpdateRespawnPoint()
+    public void UpdateRespawnPoint(Vector3 newPosition)
     {
-        this.respawnPoint = this.transform.position;
+        this.respawnPoint = newPosition;
     }
 
     public void Respawn()

@@ -31,17 +31,17 @@ public class EnemySpawner : MonoBehaviour
     public void DespawnEnemy()
     {
         //If enemy is still alive
-        if (enemy.GetComponent<Enemy>().health > 0)
+        if (enemy == null)
         {
-            //Despawn enemy object
-            Destroy(enemy);
+            //Mark enemy as dead
+            enemyDead = true;
         }
 
         //If enemy is dead
         else
         {
-            //Mark enemy as dead
-            enemyDead = true;
+            //Despawn enemy object
+            Destroy(enemy);
         }
     }
 

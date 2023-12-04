@@ -54,8 +54,11 @@ public class RoomChange : MonoBehaviour
             GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
             camera.GetComponent<DungeonCamera>().ChangeCameraPosition(this.transform.position + new Vector3(0, 0, camera.transform.position.z));
 
+            //Get new position for player to respawn in
+            Vector3 newPosition = CreateNewRespawnPoint(collision);
+
             //Update respawn point
-            collision.GetComponent<JoController>().UpdateRespawnPoint();
+            collision.GetComponent<JoController>().UpdateRespawnPoint(newPosition);
 
             //Spawn enemies in enemySpawners list
             for (int i = 0; i < enemySpawners.Length; i++)
@@ -76,5 +79,46 @@ public class RoomChange : MonoBehaviour
                 enemySpawners[i].GetComponent<EnemySpawner>().DespawnEnemy();
             }
         }
+    }
+
+    private Vector3 CreateNewRespawnPoint(Collider2D collision)
+    {
+        //New spawn position
+        Vector3 newRespawnPoint = new Vector3(0, 0, 0);
+
+        // Calculate the direction vector from the center of the collider to the other object
+        Vector2 direction = this.transform.position - collision.transform.position;
+
+        // Determine the side based on the direction
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            // Collided from the left or right side
+            if (direction.x > 0)
+            {
+                Debug.Log("Entered from the left side");
+                newRespawnPoint = collision.transform.position - new Vector3(1, 0, 0);
+            }
+            else
+            {
+                Debug.Log("Entered from the right side");
+                newRespawnPoint = collision.transform.position + new Vector3(1, 0, 0);
+            }
+        }
+        else
+        {
+            // Collided from the top or bottom side
+            if (direction.y > 0)
+            {
+                Debug.Log("Entered from the bottom side");
+                newRespawnPoint = collision.transform.position - new Vector3(0, 1, 0);
+            }
+            else
+            {
+                Debug.Log("Entered from the top side");
+                newRespawnPoint = collision.transform.position + new Vector3(0, 1, 0);
+            }
+        }
+
+        return newRespawnPoint;
     }
 }
