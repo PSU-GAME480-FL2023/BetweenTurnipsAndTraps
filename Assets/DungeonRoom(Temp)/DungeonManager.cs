@@ -57,6 +57,7 @@ public class DungeonManager : MonoBehaviour
         //If we are at the final floor, leave
         if (currentFloorNumber == numberOfFloors)
         {
+            SceneManager.LoadScene("DungeonHub");
             Debug.Log("Dungeon Beaten!");
         }
         //Progress to the next floor
