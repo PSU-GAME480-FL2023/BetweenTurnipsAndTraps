@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7772720491019735285}
   m_Layer: 0
   m_Name: TreasureChest
-  m_TagString: Untagged
+  m_TagString: Treasure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,3 +149,4 @@ MonoBehaviour:
   cash: 5
   open: 0
   opened: {fileID: 1724805020, guid: c7d7f284b38f74d489d340fd1aa8b05d, type: 3}
+  moneyElement: {fileID: 0}

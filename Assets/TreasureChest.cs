@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TreasureChest : MonoBehaviour
@@ -9,6 +10,7 @@ public class TreasureChest : MonoBehaviour
     public Sprite opened;
     SpriteRenderer rend;
     private GameManager gameManager;
+    public TextMeshProUGUI moneyElement;
 
     private void Start()
     {
@@ -22,7 +24,11 @@ public class TreasureChest : MonoBehaviour
     
     public void OpenChest()
     {
-        gameManager.money += cash;
-        rend.sprite = opened;
+        if (!open)
+        {
+            gameManager.money += cash;
+            rend.sprite = opened;
+            moneyElement.text = gameManager.money.ToString();
+        }
     }
 }
