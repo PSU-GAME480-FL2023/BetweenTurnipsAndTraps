@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 //This Script Handles the Basic moverments and actions of the player character
 public class JoController : MonoBehaviour
@@ -60,6 +61,9 @@ public class JoController : MonoBehaviour
     Transform t;
     Vector3 respawnPoint;
 
+    //UI
+    public GameObject inventoryText;
+
     void Start()
     {
         t = transform;
@@ -73,6 +77,9 @@ public class JoController : MonoBehaviour
         objectsToAction = new List<Collider2D>();
 
         animator = gameObject.GetComponent<Animator>();
+
+        //Update UI
+        UpdateInventoryText();
     }
 
     // Update is called once per frame
@@ -268,6 +275,8 @@ public class JoController : MonoBehaviour
                         heldObjects[0] = null;
                     }
                 }
+
+                UpdateInventoryText();
             }
         }
 
@@ -323,6 +332,8 @@ public class JoController : MonoBehaviour
                     heldObjects[1] = null;
                 }
             }
+
+            UpdateInventoryText();
         }
 
         //Menu Controls
@@ -520,5 +531,26 @@ public class JoController : MonoBehaviour
     public void Respawn()
     {
         this.transform.position = respawnPoint;
+    }
+
+    //Update the text showing items in player's hotbar
+    public void UpdateInventoryText()
+    {
+        //If the inventory text has been set
+        if(inventoryText != null)
+        {
+            //Full inventory string
+            string inventoryString = "";
+
+            //For each item, get it's name and ammo
+            for (int i = 0; i < heldObjects.Length; i++)
+            {
+                string inventoryLine = heldObjects[i].name + ": " + heldObjectsAmmo[i];
+
+                inventoryString = inventoryString + inventoryLine + "\n";
+            }
+
+            inventoryText.GetComponent<TextMeshProUGUI>().text = inventoryString;
+        }
     }
 }
