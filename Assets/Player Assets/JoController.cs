@@ -336,6 +336,62 @@ public class JoController : MonoBehaviour
             UpdateInventoryText();
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha3) && heldObject == null && heldObjects[2] != null)
+        {
+            //If object is throwable
+            if (heldObjects[2].tag == "Throwable")
+            {
+                //Create instance of fruit
+                GameObject fruitInstance = Instantiate(heldObjects[2]);
+
+                //Turn its collider off
+                fruitInstance.GetComponent<BoxCollider2D>().enabled = false;
+
+                //Make Jo hold object
+                heldObject = fruitInstance;
+                heldR2d = heldObject.GetComponent<Rigidbody2D>();
+                heldCollider = heldObject.GetComponent<Collider2D>();
+
+                heldCollider.isTrigger = true;
+
+                //Remove one from ammo count
+                heldObjectsAmmo[2] = heldObjectsAmmo[2] - 1;
+
+                //Remove item if we are  out of ammo
+                if (heldObjectsAmmo[2] <= 0)
+                {
+                    heldObjects[2] = null;
+                }
+            }
+
+            //If object is consumable
+            else if (heldObjects[2].tag == "Consumable" && fruitActive == false)
+            {
+                //Mark fruit as in use
+                fruitActive = true;
+
+                //Create instance of fruit
+                GameObject fruitInstance = Instantiate(heldObjects[2]);
+
+                //Activate the effect of the item
+                fruitInstance.GetComponent<ConsumableItem>().ActivateEffect(this.transform.gameObject);
+
+                //Stop using fruit
+                fruitActive = false;
+
+                //Remove one from ammo count
+                heldObjectsAmmo[2] = heldObjectsAmmo[2] - 1;
+
+                //Remove item if we are  out of ammo
+                if (heldObjectsAmmo[2] <= 0)
+                {
+                    heldObjects[2] = null;
+                }
+            }
+
+            UpdateInventoryText();
+        }
+
         //Menu Controls
         //Main Menu
         if (Input.GetKey(KeyCode.Escape))

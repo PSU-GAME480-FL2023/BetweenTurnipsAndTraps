@@ -19,8 +19,7 @@ public class DungeonManager : MonoBehaviour
     //Maximum size of each floor
     public int[] floorMaxSizes;
 
-    //We can change the scene
-    private bool sceneReloaded;
+    private bool destroyTime;
 
     //On Awake
     void Start()
@@ -32,6 +31,8 @@ public class DungeonManager : MonoBehaviour
 
             DontDestroyOnLoad(gameObject);
             Instance = this;
+
+            destroyTime = false;
 
             //Set the current floor number
             currentFloorNumber = 0;
@@ -57,8 +58,8 @@ public class DungeonManager : MonoBehaviour
         //If we are at the final floor, leave
         if (currentFloorNumber == numberOfFloors)
         {
+            destroyTime = true;
             SceneManager.LoadScene("DungeonHub");
-            Debug.Log("Dungeon Beaten!");
         }
         //Progress to the next floor
         else
@@ -67,10 +68,10 @@ public class DungeonManager : MonoBehaviour
             Debug.Log("The current floor is " + currentFloorNumber);
 
             //Get the room spawner
-             RoomSpawner roomSpawner = GameObject.FindGameObjectWithTag("RoomSpawner").GetComponent<RoomSpawner>();
+            RoomSpawner roomSpawner = GameObject.FindGameObjectWithTag("RoomSpawner")?.GetComponent<RoomSpawner>();
 
             //Create new floor
-            roomSpawner.BeginFloorCreation(floorMinSizes[currentFloorNumber - 1], floorMaxSizes[currentFloorNumber - 1]);
+            roomSpawner?.BeginFloorCreation(floorMinSizes[currentFloorNumber - 1], floorMaxSizes[currentFloorNumber - 1]);
         }
     }
 
@@ -84,7 +85,14 @@ public class DungeonManager : MonoBehaviour
     //
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        ChangeFloor();
+        if (destroyTime)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            ChangeFloor();
+        }
     }
 
     //Flee the dungeon (called on death or player deciding to leave)
