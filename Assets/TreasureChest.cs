@@ -11,10 +11,12 @@ public class TreasureChest : MonoBehaviour
     SpriteRenderer rend;
     private GameManager gameManager;
     public TextMeshProUGUI moneyElement;
+    AudioSource source;
 
     private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
+        source = GetComponent<AudioSource>();
         gameManager = GameManager.instance;
         if(cash == 0)
         {
@@ -26,6 +28,7 @@ public class TreasureChest : MonoBehaviour
     {
         if (!open)
         {
+            source.Play();
             gameManager.money += cash;
             rend.sprite = opened;
             moneyElement.text = gameManager.money.ToString();

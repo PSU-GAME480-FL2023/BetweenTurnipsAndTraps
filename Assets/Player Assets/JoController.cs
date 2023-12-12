@@ -41,6 +41,7 @@ public class JoController : MonoBehaviour
     public AudioClip clipDie;
     public AudioClip clipThrow;
     public AudioClip clipGrab;
+    AudioSource audio;
 
 
     //Iteraction and Throw objects
@@ -70,6 +71,7 @@ public class JoController : MonoBehaviour
         r2d = GetComponent<Rigidbody2D>();
         r2d.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         mainCollider = GetComponent<BoxCollider2D>();
+        audio = GetComponent<AudioSource>();
 
         //grabbing out grab trigger
         actionTrigger = transform.Find("JoActionTrigger").gameObject;
@@ -167,6 +169,8 @@ public class JoController : MonoBehaviour
                         }
                         else if (contents.gameObject.tag == "Throwable")
                         {
+                            audio.clip = clipGrab;
+                            audio.Play();
                             heldObject = contents.gameObject;
                             heldR2d = heldObject.GetComponent<Rigidbody2D>();
                             heldCollider = heldObject.GetComponent<Collider2D>();
@@ -189,6 +193,8 @@ public class JoController : MonoBehaviour
                     }
                     else
                     {
+                        audio.clip = clipThrow;
+                        audio.Play();
                         heldR2d.isKinematic = true;
                         heldR2d.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
                         heldR2d.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
@@ -212,6 +218,8 @@ public class JoController : MonoBehaviour
                 if (heldObject == null)
                 {
                     animator.SetBool("isAttack", true);
+                    audio.clip = clipAttack;
+                    audio.Play();
                     isAttacking = true;
                 }
             }
@@ -496,6 +504,9 @@ public class JoController : MonoBehaviour
         health -= damage;
         hurting = true;
         animator.SetBool("isHurt", true);
+
+        audio.clip = clipHurt;
+        audio.Play();
 
         // Drop item
         if (heldObject != null)

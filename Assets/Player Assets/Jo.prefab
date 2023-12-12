@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bf17fced10f754d9f37dd54fabdd2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 15
   cash: 0
   max_speed: 1
   current_speed: 0
@@ -62,10 +62,17 @@ MonoBehaviour:
   inVilliage: 0
   isFarming: 0
   isAttacking: 0
+  hurting: 0
   direction: 83
   cur_anim: 
+  clipAttack: {fileID: 8300000, guid: 6ed43044ede05914bac11afa360ce632, type: 3}
+  clipHurt: {fileID: 8300000, guid: 96bc234e4b20dc34997e9fb314771d1b, type: 3}
+  clipDie: {fileID: 0}
+  clipThrow: {fileID: 8300000, guid: 0804eefef5621e449ae03daf493e1d8b, type: 3}
+  clipGrab: {fileID: 8300000, guid: cf7e7541257b78a45acc9d85be17256e, type: 3}
   heldObjects: []
   heldObjectsAmmo: 
+  inventoryText: {fileID: 0}
 --- !u!50 &4020344826576654794
 Rigidbody2D:
   serializedVersion: 4

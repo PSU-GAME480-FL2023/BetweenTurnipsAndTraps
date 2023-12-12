@@ -14,14 +14,16 @@ public class Stairs : MonoBehaviour
         {
             if (last)
             {
-                SceneManager.LoadScene(destination);
+                SceneManager.LoadScene(4);
             }
+            else
+            {
+                //Get the Dungeon Manager
+                DungeonManager dungeonManager = GameObject.FindGameObjectWithTag("DungeonManager").GetComponent<DungeonManager>();
 
-            //Get the Dungeon Manager
-            DungeonManager dungeonManager = GameObject.FindGameObjectWithTag("DungeonManager").GetComponent<DungeonManager>();
-
-            //Change Floor
-            dungeonManager.ReloadScene();
+                //Change Floor
+                dungeonManager.ReloadScene();
+            }
         }
     }
 }
