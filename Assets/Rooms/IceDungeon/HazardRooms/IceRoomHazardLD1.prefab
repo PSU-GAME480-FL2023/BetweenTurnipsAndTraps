@@ -1139,7 +1139,7 @@ GameObject:
   - component: {fileID: 2853740628550773130}
   - component: {fileID: 2853740628550773129}
   m_Layer: 0
-  m_Name: IceRoomTemplateLD
+  m_Name: IceRoomHazardLD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   leftDoor: 1
   rightDoor: 0
   downDoor: 1
-  roomType: 0
+  roomType: 1
 --- !u!1 &2853740628601805315
 GameObject:
   m_ObjectHideFlags: 0

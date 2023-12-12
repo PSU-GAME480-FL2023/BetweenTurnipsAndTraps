@@ -87,7 +87,8 @@ public class DungeonManager : MonoBehaviour
     {
         if (destroyTime)
         {
-            Destroy(gameObject);
+            currentFloorNumber = 0;
+            destroyTime = false;
         }
         else
         {
